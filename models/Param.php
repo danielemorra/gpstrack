@@ -12,6 +12,7 @@ use Yii;
  * @property integer $par_leggi_campo
  * @property string $par_campo_num
  * @property string $par_campo_str
+ *
  * @property string $par_campo_date
  */
 class Param extends \yii\db\ActiveRecord
