@@ -65,12 +65,19 @@ class MezzoTrasportoController extends Controller
         $model = new MezzoTrasporto();
         /* TODO: implementare gestione utenti e sostituire con utente attivo*/
         $model->setAttribute('mzt_utente_id', Yii::$app->params['idUtenteDm9']);
+        /*dm9-160227*inizio*********************/
+        $modelTipologia=ArrayHelper::map(TipologiaMzt::find()
+        		->orderby('tmz_tipologia')
+        		->asArray()
+        		->all(), 'tmz_id', 'tmz_tipologia');
+        /*dm9-160227*fine*********************/
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->mzt_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+            	'modelTipologia' => $modelTipologia,		/*dm9-160227*/	
             ]);
         }
     }

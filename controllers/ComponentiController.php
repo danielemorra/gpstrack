@@ -66,11 +66,31 @@ class ComponentiController extends Controller
     {
         $model = new Componenti();
 
+        /*dm9-160227*inizio******************/
+        $modelFornitori=ArrayHelper::map(Fornitori::find()
+        		->orderby('frn_nome')
+        		->asArray()
+        		->all(), 'frn_id', 'frn_nome');
+        
+        $modelCategoria=ArrayHelper::map(Categoria::find()
+        		->orderby('cat_categoria')
+        		->asArray()
+        		->all(), 'cat_id', 'cat_categoria');
+
+        $modelUbicazCompon=ArrayHelper::map(UbicazioneComponente::find()
+				->orderby('ubc_ubicazione','ubc_contenitore')
+				->asArray()
+				->all(), 'ubc_id', 'ubc_contenitore', 'ubc_ubicazione');    
+		/*dm9-160227*fine******************/
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->cmp_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modelFornitori' => $modelFornitori,		/*dm9-160227*/
+                'modelCategoria' => $modelCategoria,		/*dm9-160227*/
+                'modelUbicazCompon' => $modelUbicazCompon,	/*dm9-160227*/
             ]);
         }
     }

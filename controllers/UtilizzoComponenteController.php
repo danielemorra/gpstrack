@@ -65,11 +65,27 @@ class UtilizzoComponenteController extends Controller
     {
         $model = new UtilizzoComponente();
 
+        /*dm9-160227*inizio*************/
+		$dataOdiernaSQL = date('Y-m-d');
+        $modelComponenti=ArrayHelper::map(Componenti::find()
+        		->orderby('cmp_componente')
+        		->asArray()
+        		->all(), 'cmp_id', 'cmp_componente');
+
+        $modelMezzoTrasporto=ArrayHelper::map(MezzoTrasporto::find()
+        		->where('mzt_data_inizio_utilizzo <= :dtOdierna and mzt_data_fine_utilizzo >= :dtOdierna', ['dtOdierna'=>$dataOdiernaSQL])
+        		->orderby('mzt_mezzo_trasporto')
+        		->asArray()
+        		->all(), 'mzt_id', 'mzt_mezzo_trasporto');
+        /*dm9-160227*fine*************/
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->utc_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modelComponenti' => $modelComponenti,				/*dm9-160227*/
+                'modelMezzoTrasporto' => $modelMezzoTrasporto,		/*dm9-160227*/
             ]);
         }
     }

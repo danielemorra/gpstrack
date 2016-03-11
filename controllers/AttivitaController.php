@@ -65,12 +65,21 @@ class AttivitaController extends Controller
         $model = new Attivita();
         /* TODO: implementare gestione utenti e sostituire con utente attivo*/
         $model->setAttribute('ats_utente_id', Yii::$app->params['idUtenteDm9']);
+        /*dm9-160227*inizio************************/
+        $dataOdiernaSQL = date('Y-m-d');
+        $modelMezzoTrasporto=ArrayHelper::map(MezzoTrasporto::find()
+        		->where('mzt_data_inizio_utilizzo <= :dtOdierna and mzt_data_fine_utilizzo >= :dtOdierna', ['dtOdierna'=>$dataOdiernaSQL])
+        		->orderby('mzt_mezzo_trasporto')
+        		->asArray()
+        		->all(), 'mzt_id', 'mzt_mezzo_trasporto');
+        /*dm9-160227*inizio************************/
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ats_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modelMezzoTrasporto' => $modelMezzoTrasporto,		/*dm9-160227*/
             ]);
         }
     }

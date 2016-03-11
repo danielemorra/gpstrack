@@ -64,11 +64,21 @@ class ManutenzioneController extends Controller
     {
         $model = new Manutenzione();
 
+        /*dm9-160227*inizio************/
+		$dataOdiernaSQL = date('Y-m-d');
+        $modelComponenti=ArrayHelper::map(Componenti::find()
+        		->where('cmp_data_dismissione >= :dtOdierna', ['dtOdierna'=>$dataOdiernaSQL])
+        		->orderby('cmp_componente')
+        		->asArray()
+        		->all(), 'cmp_id', 'cmp_componente');
+        /*dm9-160227*fine************/
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->mtz_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+        		'modelComponenti' => $modelComponenti,		/*dm9-160227*/
             ]);
         }
     }
@@ -97,8 +107,8 @@ class ManutenzioneController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'modelComponenti' => $modelComponenti,
-            ]);
+        		'modelComponenti' => $modelComponenti,		/*dm9-160227*/
+            		]);
         }
     }
 
