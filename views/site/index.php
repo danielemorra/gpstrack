@@ -17,76 +17,29 @@ $this->title = 'My Yii Application';
 
     <div class="body-content">
 
-	    <?php $form = ActiveForm::begin([
-	        'id' => 'statistiche-form',
-	        'options' => ['class' => 'form-inline'],
-	        'fieldConfig' => [
-//	            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-				'template' => "<div>{label}\n{input}</div><div class=\"col-lg-8\">{error}</div>",
-		        'labelOptions' => ['class' => 'col-lg-1 control-label'],
-	        ],
-	    ]); ?>
-	
-	    	<h2>
-				Statistiche anno <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
-//					'value' => date("Y"),
-					'maxlength'=>4,
-					'placeholder' => date("Y"),
-				))->label(false) ?>
-			    <div class="form-group">
-			        <div class="col-lg-offset-1 col-lg-11">
-			            <?= Html::submitButton('Aggiorna Statistiche', ['class' => 'btn btn-primary', 'name' => 'update-statistiche-button']) ?>
-			        </div>
-			    </div>
-    		</h2>
-			<table class="responsive-table riep-curr-year-BDC-labels">
-				<thead>
-				<tr>
-					<th>BDC Km</th>
-					<th class="border-right-grey text-color-blue">BDC Dsl</th>
-					<th>MTB Km</th>
-					<th class="border-right-grey text-color-blue">MTB Dsl</th>
-					<th>RUN Km</th>
-					<th class="border-right-grey text-color-blue">RUN Dsl</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td><em><?= number_format($array['kmBdcCurrYear'],1,',','.'); ?></em></td>
-					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salBdcCurrYear'],0,',','.'); ?></em></td>
-					<td><em><?= number_format($array['kmMtbCurrYear'],1,',','.'); ?></em></td>
-					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salMtbCurrYear'],0,',','.'); ?></em></td>
-					<td><em><?= number_format($array['kmRunCurrYear'],1,',','.'); ?></em></td>
-					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salRunCurrYear'],0,',','.'); ?></em></td>
-				</tr>
-				</tbody>
-			</table>        	
-			
-	    <?php ActiveForm::end(); ?>
-
 		<?php $form = ActiveForm::begin([
-			'id' => 'obiettivi-form',
-			'options' => ['class' => 'form-inline'],
-			'fieldConfig' => [
-				'template' => "<div>{label}\n{input}</div><div class=\"col-lg-8\">{error}</div>",
-				'labelOptions' => ['class' => 'col-lg-1 control-label'],
-			],
+				'id' => 'obiettivi-form',
+				'options' => ['class' => 'form-inline'],
+				'fieldConfig' => [
+						'template' => "<div>{label}\n{input}</div><div class=\"col-lg-8\">{error}</div>",
+						'labelOptions' => ['class' => 'col-lg-1 control-label'],
+				],
 		]); ?>
 
-			<h2>
-				Obiettivi <?= $form->field($modelHomeObiet, 'annoObiettivi')->textInput(array(
-	//					'value' => date("Y"),
+		<h2>
+			Obiettivi <?= $form->field($modelHomeObiet, 'annoObiettivi')->textInput(array(
+				//					'value' => date("Y"),
 					'maxlength'=>4,
 					'placeholder' => date("Y"),
-				))->label(false) ?>
-				<div class="form-group">
-					<div class="col-lg-offset-1 col-lg-11">
-						<?= Html::submitButton('Aggiorna Obiettivi', ['class' => 'btn btn-primary', 'name' => 'update-obiettivi-button']) ?>
-					</div>
+			))->label(false) ?>
+			<div class="form-group">
+				<div class="col-lg-offset-1 col-lg-11">
+					<?= Html::submitButton('Aggiorna', ['class' => 'btn btn-primary', 'name' => 'update-obiettivi-button']) ?>
 				</div>
-			</h2>
-			<h3>km percorsi in BDC</h3>
-			<?php if ($modelParamBdc != null) { ?>
+			</div>
+		</h2>
+		<h3>km percorsi in BDC</h3>
+		<?php if ($modelParamBdc != null) { ?>
 			<table class="responsive-table obiettivo-km-bdc-1-labels">
 				<thead>
 				<tr>
@@ -119,9 +72,9 @@ $this->title = 'My Yii Application';
 				</tr>
 				</tbody>
 			</table>
-			<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in BDC." ?>
-			<h3>km percorsi in MTB</h3>
-			<?php if ($modelParamMtb != null) { ?>
+		<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in BDC." ?>
+		<h3>km percorsi in MTB</h3>
+		<?php if ($modelParamMtb != null) { ?>
 			<table class="responsive-table obiettivo-km-mtb-1-labels">
 				<thead>
 				<tr>
@@ -154,9 +107,56 @@ $this->title = 'My Yii Application';
 				</tr>
 				</tbody>
 			</table>
-			<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in MTB." ?>
+		<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in MTB." ?>
 
 		<?php ActiveForm::end(); ?>
+
+		<?php $form = ActiveForm::begin([
+				'id' => 'statistiche-form',
+				'options' => ['class' => 'form-inline'],
+				'fieldConfig' => [
+//	            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+						'template' => "<div>{label}\n{input}</div><div class=\"col-lg-8\">{error}</div>",
+						'labelOptions' => ['class' => 'col-lg-1 control-label'],
+				],
+		]); ?>
+
+		<h2>
+				Statistiche anno <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
+//					'value' => date("Y"),
+					'maxlength'=>4,
+					'placeholder' => date("Y"),
+				))->label(false) ?>
+			    <div class="form-group">
+			        <div class="col-lg-offset-1 col-lg-11">
+			            <?= Html::submitButton('Aggiorna', ['class' => 'btn btn-primary', 'name' => 'update-statistiche-button']) ?>
+			        </div>
+			    </div>
+    		</h2>
+			<table class="responsive-table riep-curr-year-BDC-labels">
+				<thead>
+				<tr>
+					<th>BDC Km</th>
+					<th class="border-right-grey text-color-blue">BDC Dsl</th>
+					<th>MTB Km</th>
+					<th class="border-right-grey text-color-blue">MTB Dsl</th>
+					<th>RUN Km</th>
+					<th class="border-right-grey text-color-blue">RUN Dsl</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><em><?= number_format($array['kmBdcCurrYear'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salBdcCurrYear'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmMtbCurrYear'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salMtbCurrYear'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmRunCurrYear'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salRunCurrYear'],0,',','.'); ?></em></td>
+				</tr>
+				</tbody>
+			</table>        	
+			
+	    <?php ActiveForm::end(); ?>
 
 	    <h2>Usura componenti BDC</h2>
 		<strong>Lista componenti ordinata a partire dal + utilizzato</strong>
