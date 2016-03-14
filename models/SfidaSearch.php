@@ -19,7 +19,7 @@ class SfidaSearch extends Sfida
     {
         return [
             [['sfd_id', 'sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
-            [['sfd_titolo', 'sfd_sotto_titolo', 'sfd_descrizione', 'sfd_data_pubblicaz', 'sfd_data_inizio', 'sfd_data_fine'], 'safe'],
+            [['sfd_titolo', 'sfd_sotto_titolo', 'sfd_descrizione', 'sfd_data_pubblicaz', 'sfd_data_inizio', 'sfd_data_fine', 'sfd_image_url'], 'safe'],
             [['sfd_obiettivo'], 'number'],
         ];
     }
@@ -68,7 +68,8 @@ class SfidaSearch extends Sfida
 
         $query->andFilterWhere(['like', 'sfd_titolo', $this->sfd_titolo])
             ->andFilterWhere(['like', 'sfd_sotto_titolo', $this->sfd_sotto_titolo])
-            ->andFilterWhere(['like', 'sfd_descrizione', $this->sfd_descrizione]);
+            ->andFilterWhere(['like', 'sfd_descrizione', $this->sfd_descrizione])
+            ->andFilterWhere(['like', 'sfd_image_url', $this->sfd_image_url]);
 
         return $dataProvider;
     }

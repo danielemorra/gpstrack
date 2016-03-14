@@ -18,100 +18,6 @@ $this->title = 'My Yii Application';
     <div class="body-content">
 
 		<?php $form = ActiveForm::begin([
-				'id' => 'obiettivi-form',
-				'options' => ['class' => 'form-inline'],
-				'fieldConfig' => [
-						'template' => "<div>{label}\n{input}</div><div class=\"col-lg-8\">{error}</div>",
-						'labelOptions' => ['class' => 'col-lg-1 control-label'],
-				],
-		]); ?>
-
-		<h2>
-			Obiettivi <?= $form->field($modelHomeObiet, 'annoObiettivi')->textInput(array(
-				//					'value' => date("Y"),
-					'maxlength'=>4,
-					'placeholder' => date("Y"),
-			))->label(false) ?>
-			<div class="form-group">
-				<div class="col-lg-offset-1 col-lg-11">
-					<?= Html::submitButton('Aggiorna', ['class' => 'btn btn-primary', 'name' => 'update-obiettivi-button']) ?>
-				</div>
-			</div>
-		</h2>
-		<h3>km percorsi in BDC</h3>
-		<?php if ($modelParamBdc != null) { ?>
-			<table class="responsive-table obiettivo-km-bdc-1-labels">
-				<thead>
-				<tr>
-					<th>Obiettivo</th>
-					<th>Numero settimane annue</th>
-					<th>Km (ipotetici) da fare/settimana</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td><em><?= number_format($modelParamBdc->par_campo_num,2,',','.'); ?></em></td>
-					<td><em><?= $array['totWeekOfYear']; ?></em></td>
-					<td><em><?= number_format($array['totKmPerWeek'],2,',','.'); ?></em></td>
-				</tr>
-				</tbody>
-			</table>
-			<table class="responsive-table obiettivo-km-bdc-2-labels">
-				<thead>
-				<tr>
-					<th>Km percorsi</th>
-					<th>Settimane mancanti</th>
-					<th>Km da fare/settimana</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td><em><?= $array['kmBdcCurrYear']; ?></em></td>
-					<td><em><?= $array['totWeekRemain']; ?></em></td>
-					<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
-				</tr>
-				</tbody>
-			</table>
-		<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in BDC." ?>
-		<h3>km percorsi in MTB</h3>
-		<?php if ($modelParamMtb != null) { ?>
-			<table class="responsive-table obiettivo-km-mtb-1-labels">
-				<thead>
-				<tr>
-					<th>Obiettivo</th>
-					<th>Numero settimane annue</th>
-					<th>Km (ipotetici) da fare/settimana</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td><em><?= number_format($modelParamMtb->par_campo_num,2,',','.'); ?></em></td>
-					<td><em><?= $array['totWeekOfYear']; ?></em></td>
-					<td><em><?= number_format($array['totKmPerWeek'],2,',','.'); ?></em></td>
-				</tr>
-				</tbody>
-			</table>
-			<table class="responsive-table obiettivo-km-mtb-2-labels">
-				<thead>
-				<tr>
-					<th>Km percorsi</th>
-					<th>Settimane mancanti</th>
-					<th>Km da fare/settimana</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td><em><?= $array['kmMtbCurrYear']; ?></em></td>
-					<td><em><?= $array['totWeekRemain']; ?></em></td>
-					<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
-				</tr>
-				</tbody>
-			</table>
-		<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in MTB." ?>
-
-		<?php ActiveForm::end(); ?>
-
-		<?php $form = ActiveForm::begin([
 				'id' => 'statistiche-form',
 				'options' => ['class' => 'form-inline'],
 				'fieldConfig' => [
@@ -121,8 +27,9 @@ $this->title = 'My Yii Application';
 				],
 		]); ?>
 
-		<h2>
-				Statistiche anno <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
+		<div style="background-color: #ccffcc; padding: 4px; margin-bottom: 8px;">
+			<h2>
+				Statistiche <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
 //					'value' => date("Y"),
 					'maxlength'=>4,
 					'placeholder' => date("Y"),
@@ -154,11 +61,108 @@ $this->title = 'My Yii Application';
 					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salRunCurrYear'],0,',','.'); ?></em></td>
 				</tr>
 				</tbody>
-			</table>        	
-			
+			</table>
+		</div>
+
 	    <?php ActiveForm::end(); ?>
 
-	    <h2>Usura componenti BDC</h2>
+		<?php $form = ActiveForm::begin([
+			'id' => 'obiettivi-form',
+			'options' => ['class' => 'form-inline'],
+			'fieldConfig' => [
+				'template' => "<div>{label}\n{input}</div><div class=\"col-lg-8\">{error}</div>",
+				'labelOptions' => ['class' => 'col-lg-1 control-label'],
+			],
+		]); ?>
+
+		<div style="background-color: #9acfea; padding: 4px; margin-bottom: 8px;">
+			<h2>
+				Obiettivi <?= $form->field($modelHomeObiet, 'annoObiettivi')->textInput(array(
+//						'value' => date("Y"),
+					'maxlength'=>4,
+					'placeholder' => date("Y"),
+				))->label(false) ?>
+				<div class="form-group">
+					<div class="col-lg-offset-1 col-lg-11">
+						<?= Html::submitButton('Aggiorna', ['class' => 'btn btn-primary', 'name' => 'update-obiettivi-button']) ?>
+					</div>
+				</div>
+			</h2>
+			<h3>km percorsi in BDC</h3>
+			<?php if ($modelParamBdc != null) { ?>
+				<table class="responsive-table obiettivo-km-bdc-1-labels">
+					<thead>
+					<tr>
+						<th>Obiettivo</th>
+						<th>Numero settimane annue</th>
+						<th>Km (ipotetici) da fare/settimana</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><em><?= number_format($modelParamBdc->par_campo_num,2,',','.'); ?></em></td>
+						<td><em><?= $array['totWeekOfYear']; ?></em></td>
+						<td><em><?= number_format($array['totKmPerWeek'],2,',','.'); ?></em></td>
+					</tr>
+					</tbody>
+				</table>
+				<table class="responsive-table obiettivo-km-bdc-2-labels">
+					<thead>
+					<tr>
+						<th>Km percorsi</th>
+						<th>Settimane mancanti</th>
+						<th>Km da fare/settimana</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><em><?= $array['kmBdcCurrYear']; ?></em></td>
+						<td><em><?= $array['totWeekRemain']; ?></em></td>
+						<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
+					</tr>
+					</tbody>
+				</table>
+			<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in BDC." ?>
+			<h3>km percorsi in MTB</h3>
+			<?php if ($modelParamMtb != null) { ?>
+				<table class="responsive-table obiettivo-km-mtb-1-labels">
+					<thead>
+					<tr>
+						<th>Obiettivo</th>
+						<th>Numero settimane annue</th>
+						<th>Km (ipotetici) da fare/settimana</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><em><?= number_format($modelParamMtb->par_campo_num,2,',','.'); ?></em></td>
+						<td><em><?= $array['totWeekOfYear']; ?></em></td>
+						<td><em><?= number_format($array['totKmPerWeek'],2,',','.'); ?></em></td>
+					</tr>
+					</tbody>
+				</table>
+				<table class="responsive-table obiettivo-km-mtb-2-labels">
+					<thead>
+					<tr>
+						<th>Km percorsi</th>
+						<th>Settimane mancanti</th>
+						<th>Km da fare/settimana</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><em><?= $array['kmMtbCurrYear']; ?></em></td>
+						<td><em><?= $array['totWeekRemain']; ?></em></td>
+						<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
+					</tr>
+					</tbody>
+				</table>
+			<?php } else echo "Non e' presente nessun obiettivo per la distanza da percorrere in MTB." ?>
+		</div>
+
+		<?php ActiveForm::end(); ?>
+
+		<h2>Usura componenti BDC</h2>
 		<strong>Lista componenti ordinata a partire dal + utilizzato</strong>
 	    <?php if (count($kmCompBdcArray) > 0): ?>
 		<table class="responsive-table usura-componenti-labels">

@@ -17,6 +17,7 @@ use Yii;
  * @property string $sfd_specialita_id
  * @property string $sfd_tipologia_id
  * @property string $sfd_obiettivo
+ * @property string $sfd_image_url
  *
  * @property TipologiaMzt $sfdTipologia
  * @property SfidaSpecialita $sfdSpecialita
@@ -44,7 +45,8 @@ class Sfida extends \yii\db\ActiveRecord
             [['sfd_obiettivo'], 'number'],
             [['sfd_titolo'], 'string', 'max' => 50],
             [['sfd_sotto_titolo'], 'string', 'max' => 100],
-            [['sfd_descrizione'], 'string', 'max' => 500]
+            [['sfd_descrizione'], 'string', 'max' => 500],
+            [['sfd_image_url'], 'string', 'max' => 255]
         ];
     }
 
@@ -64,6 +66,7 @@ class Sfida extends \yii\db\ActiveRecord
             'sfd_specialita_id' => 'Sfd Specialita ID',
             'sfd_tipologia_id' => 'Sfd Tipologia ID',
             'sfd_obiettivo' => 'Sfd Obiettivo',
+            'sfd_image_url' => 'Sfd Image Url',
         ];
     }
 

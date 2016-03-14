@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'sfd_specialita_id',
             // 'sfd_tipologia_id',
             // 'sfd_obiettivo',
+            // 'sfd_image_url:url',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

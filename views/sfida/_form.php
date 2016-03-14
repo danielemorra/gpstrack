@@ -30,6 +30,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sfd_obiettivo')->textInput(['maxlength' => 10]) ?>
 
+    <?= $form->field($model, 'sfd_image_url')->textInput(['maxlength' => 255]) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
