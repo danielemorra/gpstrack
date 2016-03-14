@@ -11,6 +11,7 @@ use yii\base\Model;
 class StatisticheHomeForm extends Model
 {
     public $annoStatistiche;
+    public $meseStatistiche;
 
     /**
      * @return array the validation rules.
@@ -20,6 +21,7 @@ class StatisticheHomeForm extends Model
         return [
             // controlla che sia un numerico
             [['annoStatistiche'], 'integer', 'message' => "Digita l'anno"],
+            [['meseStatistiche'], 'integer', 'message' => "Digita l'anno"],
         ];
     }
 
