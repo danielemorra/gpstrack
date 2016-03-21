@@ -15,7 +15,7 @@ class Statistiche extends \yii\db\ActiveRecord
 {
 	/**
 	 * Estrae dalla tabella Attivita il numero totale di km effettuati per la specilita (bdc, mtb, cc), per l'anno e l'utente
-	 * @param date $parAanno
+	 * @param number $parAanno
 	 * @param number $parUtente
 	 * @param string $parSpecialita
      * @return number
@@ -31,7 +31,7 @@ class Statistiche extends \yii\db\ActiveRecord
     
     /**
      * Estrae dalla tabella Attivita il totale in mt di dislivello effettuato per la specilita (bdc, mtb, cc), per l'anno e l'utente
-	 * @param date $parAanno
+	 * @param number $parAanno
 	 * @param number $parUtente
 	 * @param string $parSpecialita
      * @return number
@@ -45,7 +45,43 @@ class Statistiche extends \yii\db\ActiveRecord
     						->queryScalar();    	
     }
 
-    /**
+	/**
+	 * Estrae dalla tabella Attivita il numero totale di km effettuati per la specilita (bdc, mtb, cc), per l'anno/mese e l'utente
+	 * @param number $parAanno
+	 * @param number $parMese
+	 * @param number $parUtente
+	 * @param string $parSpecialita
+	 * @return number
+	 */
+	Public static function getKmMese($parAanno, $parMese, $parUtente, $parSpecialita)
+	{
+		return Yii::$app->db->createCommand('SELECT sum(ats_distanza_km) FROM attivita, mezzo_trasporto, tipologia_mzt WHERE ats_mezzo_trasporto_id = mzt_id AND mzt_tipologia_id = tmz_id AND YEAR(ats_data) = :curryear AND MONTH(ats_data) = :mese AND ats_utente_id = :utente AND tmz_tipologia = :tipobici')
+				->bindValue(':curryear', $parAanno)
+				->bindValue(':mese', $parMese)
+				->bindValue(':utente', $parUtente)
+				->bindValue(':tipobici', $parSpecialita)
+				->queryScalar();
+	}
+
+	/**
+	 * Estrae dalla tabella Attivita il totale in mt di dislivello effettuato per la specilita (bdc, mtb, cc), per l'anno/mese e l'utente
+	 * @param number $parAanno
+	 * @param number $parMese
+	 * @param number $parUtente
+	 * @param string $parSpecialita
+	 * @return number
+	 */
+	Public static function getDislivelloMese($parAanno, $parMese, $parUtente, $parSpecialita)
+	{
+		return Yii::$app->db->createCommand('SELECT sum(ats_dislivello) FROM attivita, mezzo_trasporto, tipologia_mzt WHERE ats_mezzo_trasporto_id = mzt_id AND mzt_tipologia_id = tmz_id AND YEAR(ats_data) = :curryear AND MONTH(ats_data) = :mese AND ats_utente_id = :utente AND tmz_tipologia = :tipobici')
+				->bindValue(':curryear', $parAanno)
+				->bindValue(':mese', $parMese)
+				->bindValue(':utente', $parUtente)
+				->bindValue(':tipobici', $parSpecialita)
+				->queryScalar();
+	}
+
+	/**
      * Estrae tutti i componenti della specialita passata e per ognuno il totale dei km percorsi
      * @param string $parSpecialita
      * @return model

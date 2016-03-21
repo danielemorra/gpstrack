@@ -35,6 +35,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'cmp_mystuff2') ?>
 
+    <?php // echo $form->field($model, 'cmp_mostra_in_home') ?>
+
     <?php // echo $form->field($model, 'cmp_id_frn') ?>
 
     <?php // echo $form->field($model, 'cmp_id_cat') ?>

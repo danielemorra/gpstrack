@@ -17,6 +17,7 @@ use Yii;
  * @property string $cmp_data_dismissione
  * @property integer $cmp_qta_util
  * @property integer $cmp_mystuff2
+ * @property integer $cmp_mostra_in_home
  * @property string $cmp_id_frn
  * @property string $cmp_id_cat
  * @property string $cmp_id_ubc

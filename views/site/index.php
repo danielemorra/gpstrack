@@ -29,7 +29,7 @@ $this->title = 'My Yii Application';
 
 		<div style="background-color: #ccffcc; padding: 4px; margin-bottom: 8px;">
 			<h2>
-				Statistiche <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
+				Statistiche Annuali per l'anno <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
 //					'value' => date("Y"),
 					'maxlength'=>4,
 					'placeholder' => date("Y"),
@@ -53,12 +53,49 @@ $this->title = 'My Yii Application';
 				</thead>
 				<tbody>
 				<tr>
-					<td><em><?= number_format($array['kmBdcCurrYear'],1,',','.'); ?></em></td>
-					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salBdcCurrYear'],0,',','.'); ?></em></td>
-					<td><em><?= number_format($array['kmMtbCurrYear'],1,',','.'); ?></em></td>
-					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salMtbCurrYear'],0,',','.'); ?></em></td>
-					<td><em><?= number_format($array['kmRunCurrYear'],1,',','.'); ?></em></td>
-					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salRunCurrYear'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmBdcAnnui'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salBdcAnnui'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmMtbAnnui'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salMtbAnnui'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmRunAnnui'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salRunAnnui'],0,',','.'); ?></em></td>
+				</tr>
+				</tbody>
+			</table>
+
+
+			<h2>
+				<?php $modelHomeStat->meseStatistiche = !isset($modelHomeStat->meseStatistiche) ? date('n') : $modelHomeStat->meseStatistiche; ?>
+				Statistiche Mensili per <?= $form->field($modelHomeStat, 'meseStatistiche')->dropDownList(
+											$listMesi,
+										['prompt' => 'Seleziona il mese']
+				)
+				->label(false) ?>
+				<div class="form-group">
+					<div class="col-lg-offset-1 col-lg-11">
+						<?= Html::submitButton('Aggiorna', ['class' => 'btn btn-primary', 'name' => 'update-statistiche-button']) ?>
+					</div>
+				</div>
+			</h2>
+			<table class="responsive-table riep-curr-year-BDC-labels">
+				<thead>
+				<tr>
+					<th>BDC Km</th>
+					<th class="border-right-grey text-color-blue">BDC Dsl</th>
+					<th>MTB Km</th>
+					<th class="border-right-grey text-color-blue">MTB Dsl</th>
+					<th>RUN Km</th>
+					<th class="border-right-grey text-color-blue">RUN Dsl</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><em><?= number_format($array['kmBdcMese'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salBdcMese'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmMtbMese'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salMtbMese'],0,',','.'); ?></em></td>
+					<td><em><?= number_format($array['kmRunMese'],1,',','.'); ?></em></td>
+					<td class="border-right-grey text-color-blue"><em><?= number_format($array['salRunMese'],0,',','.'); ?></em></td>
 				</tr>
 				</tbody>
 			</table>
@@ -116,7 +153,7 @@ $this->title = 'My Yii Application';
 					</thead>
 					<tbody>
 					<tr>
-						<td><em><?= $array['kmBdcCurrYear']; ?></em></td>
+						<td><em><?= $array['kmBdcAnnui']; ?></em></td>
 						<td><em><?= $array['totWeekRemain']; ?></em></td>
 						<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
 					</tr>
@@ -151,7 +188,7 @@ $this->title = 'My Yii Application';
 					</thead>
 					<tbody>
 					<tr>
-						<td><em><?= $array['kmMtbCurrYear']; ?></em></td>
+						<td><em><?= $array['kmMtbAnnui']; ?></em></td>
 						<td><em><?= $array['totWeekRemain']; ?></em></td>
 						<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
 					</tr>

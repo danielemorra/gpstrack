@@ -20,8 +20,9 @@ class StatisticheHomeForm extends Model
     {
         return [
             // controlla che sia un numerico
-            [['annoStatistiche'], 'integer', 'message' => "Digita l'anno"],
-            [['meseStatistiche'], 'integer', 'message' => "Digita l'anno"],
+            [['annoStatistiche'], 'required', 'message' => "Digita l'anno"],
+            [['annoStatistiche'], 'integer', 'message' => "Digita un anno numerico a 4 cifre (yyyy)"],
+            [['meseStatistiche'], 'required', 'message' => "Digita l'anno"],
         ];
     }
 

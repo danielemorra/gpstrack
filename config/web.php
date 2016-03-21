@@ -39,12 +39,12 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-    	/*dm9*inizio**	
+    	/*dm9*inizio**
    		'formatter' => [
    				'defaultTimeZone' => 'UTC',
    				'timeZone' => 'Europe/Rome',
         ],
-    	**dm9*fine*/	
+    	**dm9*fine*/
     ],
     'params' => $params,
 ];

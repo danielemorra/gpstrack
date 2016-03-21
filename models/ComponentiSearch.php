@@ -87,6 +87,7 @@ class ComponentiSearch extends Componenti
             'cmp_data_acquisto' => $this->cmp_data_acquisto,
             'cmp_data_dismissione' => $this->cmp_data_dismissione,
             'cmp_mystuff2' => $this->cmp_mystuff2,
+            'cmp_mostra_in_home' => $this->cmp_mostra_in_home,
             'cmp_id_frn' => $this->cmp_id_frn,
             'cmp_id_cat' => $this->cmp_id_cat,
             'cmp_id_ubc' => $this->cmp_id_ubc,

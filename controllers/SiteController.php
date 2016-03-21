@@ -15,6 +15,8 @@ use app\models\StatisticheHomeForm;
 use app\models\ObiettiviHomeForm;
 // use app\models\Param;
 // use app\models\Attivita;
+use app\models\UtiliMesi;
+use yii\helpers\ArrayHelper;
 
 class SiteController extends Controller
 {
@@ -60,12 +62,20 @@ class SiteController extends Controller
     	// DM9-MEMO: array globale (? approfondire lo scope):	$this->view->params['XXX'];
     	
     	$modelHomeStat = new StatisticheHomeForm();
-    	if ($modelHomeStat->load(Yii::$app->request->post()) && $modelHomeStat->validate()) {
+        /* carico in array i mesi dell'anno per combo scelta mese statistiche */
+        /* TODO: inserire in cache la tabella dei mesi */
+        $mesi = UtiliMesi::find()->all();
+        $listMesi=ArrayHelper::map($mesi,'ume_mese_num','ume_mese_desc');
+        if ($modelHomeStat->load(Yii::$app->request->post()) && $modelHomeStat->validate()) {
 			$annoStat = $modelHomeStat->annoStatistiche;
+            $meseStat = $modelHomeStat->meseStatistiche;
     	} else {
     		$annoStat = date("Y");
+            $meseStat = date("n");
     	}
-    	$array = $this::getStatisticheAnnue($annoStat);
+    	$arrayAnno = $this::getStatisticheAnnue($annoStat);
+        $arrayMese = $this::getStatisticheMensili($annoStat, $meseStat);
+        $array = array_merge($arrayAnno, $arrayMese);
 
         $modelHomeObiet = new ObiettiviHomeForm();
         if ($modelHomeObiet->load(Yii::$app->request->post()) && $modelHomeObiet->validate()) {
@@ -91,7 +101,7 @@ class SiteController extends Controller
 			// Calcola il totale di km da fare a settimana per raggiungere l'obiettivo
 	    	$array['totKmWeekToDo'] =  $this::getKmDaFarePerSettEffettivi(
 	    											   $modelParamBdc->par_campo_num,
-	    											   $array['kmBdcCurrYear'],
+	    											   $array['kmBdcAnnui'],
 	    											   $array['totWeekRemain']);
     	}    	
     	$modelParamMtb = $paramSearch->estraiObiettivoKmAnnui('obiettivo-km-annui-mtb');
@@ -102,7 +112,7 @@ class SiteController extends Controller
     		// Calcola il totale di km da fare a settimana per raggiungere l'obiettivo
     		$array['totKmWeekToDo'] = Statistiche::getKmDaFarePerSettEffettivi(
     												  $modelParamMtb->par_campo_num,
-    												  $array['kmBdcCurrYear'],
+    												  $array['kmBdcAnnui'],
     												  $array['totWeekRemain']);
     	}
     	 
@@ -113,6 +123,7 @@ class SiteController extends Controller
     	 
     	return $this->render('index', [
                 'modelHomeStat' => $modelHomeStat,
+                'listMesi' => $listMesi,
                 'modelHomeObiet' => $modelHomeObiet,
     			'modelParamBdc' => $modelParamBdc,
                 'modelParamMtb' => $modelParamMtb,
@@ -208,25 +219,50 @@ class SiteController extends Controller
     Public function getStatisticheAnnue($anno)
     {
     	// Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la BDC
-    	$array['kmBdcCurrYear'] = Statistiche::getKmAnnui($anno,
+    	$array['kmBdcAnnui'] = Statistiche::getKmAnnui($anno,
     			Yii::$app->params['idUtenteDm9'],
     			'BDC');
-    	$array['salBdcCurrYear'] = Statistiche::getDislivelloAnnuo($anno,
+    	$array['salBdcAnnui'] = Statistiche::getDislivelloAnnuo($anno,
     			Yii::$app->params['idUtenteDm9'],
     			'BDC');
     	// Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la MTB
-    	$array['kmMtbCurrYear'] = Statistiche::getKmAnnui($anno,
+    	$array['kmMtbAnnui'] = Statistiche::getKmAnnui($anno,
     			Yii::$app->params['idUtenteDm9'],
     			'MTB');
-    	$array['salMtbCurrYear'] = Statistiche::getDislivelloAnnuo($anno,
+    	$array['salMtbAnnui'] = Statistiche::getDislivelloAnnuo($anno,
     			Yii::$app->params['idUtenteDm9'], 'MTB');
     	// Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la Corsa
-    	$array['kmRunCurrYear'] = Statistiche::getKmAnnui($anno,
+    	$array['kmRunAnnui'] = Statistiche::getKmAnnui($anno,
     			Yii::$app->params['idUtenteDm9'],
     			'CORSA');
-    	$array['salRunCurrYear'] = Statistiche::getDislivelloAnnuo($anno,
+    	$array['salRunAnnui'] = Statistiche::getDislivelloAnnuo($anno,
     			Yii::$app->params['idUtenteDm9'],
     			'CORSA');
     	return $array;
+    }
+
+    Public function getStatisticheMensili($anno, $mese)
+    {
+        // Estrae tot. km, dislivello per l'utente loggato nell'anno/mese in corso per la BDC
+        $array['kmBdcMese'] = Statistiche::getKmMese($anno, $mese,
+                                    Yii::$app->params['idUtenteDm9'],
+                                    'BDC');
+        $array['salBdcMese'] = Statistiche::getDislivelloMese($anno, $mese,
+                                    Yii::$app->params['idUtenteDm9'],
+                                    'BDC');
+        // Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la MTB
+        $array['kmMtbMese'] = Statistiche::getKmMese($anno, $mese,
+                                    Yii::$app->params['idUtenteDm9'],
+                                    'MTB');
+        $array['salMtbMese'] = Statistiche::getDislivelloMese($anno, $mese,
+                                    Yii::$app->params['idUtenteDm9'], 'MTB');
+        // Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la Corsa
+        $array['kmRunMese'] = Statistiche::getKmMese($anno, $mese,
+                                    Yii::$app->params['idUtenteDm9'],
+                                    'CORSA');
+        $array['salRunMese'] = Statistiche::getDislivelloMese($anno, $mese,
+                                    Yii::$app->params['idUtenteDm9'],
+                                    'CORSA');
+        return $array;
     }
 }
