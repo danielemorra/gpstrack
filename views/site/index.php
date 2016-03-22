@@ -29,6 +29,7 @@ $this->title = 'My Yii Application';
 
 		<div style="background-color: #ccffcc; padding: 4px; margin-bottom: 8px;">
 			<h2>
+				<?php $modelHomeStat->annoStatistiche = !isset($modelHomeStat->annoStatistiche) ? date('Y') : $modelHomeStat->annoStatistiche; ?>
 				Statistiche Annuali per l'anno <?= $form->field($modelHomeStat, 'annoStatistiche')->textInput(array(
 //					'value' => date("Y"),
 					'maxlength'=>4,
