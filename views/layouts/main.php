@@ -36,13 +36,13 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Uscite', 'url' => ['/attivita']],
+                    ['label' => 'Sfide', 'url' => ['/sfida']],
 //                 	['label' => 'Ub/Comp.', 'url' => ['/ubicazione-componente']],
                		[
                 		'label' => 'Attrezzatura',
                 		'items' => [
                 				['label' => 'Attrezzatura', 'url' => Yii::$app->homeUrl.'?r=mezzo-trasporto'],
 //                 				'<li class="dropdown-header">Dropdown Header</li>',
-                				['label' => 'Tipologie', 'url' => Yii::$app->homeUrl.'?r=tipologia-mzt'],
                 				'<li class="divider"></li>',
                 				['label' => 'Manutenzione', 'url' => Yii::$app->homeUrl.'?r=manutenzione'],
                 		],
@@ -58,8 +58,10 @@ AppAsset::register($this);
                 		],
                		],
                 	[
-                		'label' => "Utilita'",
+                		'label' => "Backend",
                 		'items' => [
+                                ['label' => 'Tipologie Attivita', 'url' => Yii::$app->homeUrl.'?r=tipologia-mzt'],
+                                '<li class="divider"></li>',
                 				['label' => 'Negozi', 'url' => Yii::$app->homeUrl.'?r=fornitori'],
                 				'<li class="divider"></li>',
                 				// '<li class="dropdown-header">Dropdown Header</li>',
@@ -92,7 +94,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+            <p class="pull-left">&copy; dm9.it <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>
