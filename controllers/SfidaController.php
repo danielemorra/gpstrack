@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\SfidaSpecialita;
+use app\models\TipologiaMzt;
 use Yii;
 use app\models\Sfida;
 use app\models\SfidaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * SfidaController implements the CRUD actions for Sfida model.
@@ -61,12 +64,22 @@ class SfidaController extends Controller
     public function actionCreate()
     {
         $model = new Sfida();
+        $modelSpecialita=ArrayHelper::map(SfidaSpecialita::find()
+            ->orderby('sfs_specialita')
+            ->asArray()
+            ->all(), 'sfs_id', 'sfs_specialita');
+        $modelTipologia=ArrayHelper::map(TipologiaMzt::find()
+            ->orderby('tmz_tipologia')
+            ->asArray()
+            ->all(), 'tmz_id', 'tmz_tipologia');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->sfd_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'modelSpecialita' => $modelSpecialita,
+                'modelTipologia' => $modelTipologia,
             ]);
         }
     }
@@ -80,12 +93,22 @@ class SfidaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelSpecialita=ArrayHelper::map(SfidaSpecialita::find()
+            ->orderby('sfs_specialita')
+            ->asArray()
+            ->all(), 'sfs_id', 'sfs_specialita');
+        $modelTipologia=ArrayHelper::map(TipologiaMzt::find()
+            ->orderby('tmz_tipologia')
+            ->asArray()
+            ->all(), 'tmz_id', 'tmz_tipologia');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->sfd_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'modelSpecialita' => $modelSpecialita,
+                'modelTipologia' => $modelTipologia,
             ]);
         }
     }

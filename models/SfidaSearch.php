@@ -12,6 +12,8 @@ use app\models\Sfida;
  */
 class SfidaSearch extends Sfida
 {
+    public $specialita;
+    public $tipologia;
     /**
      * @inheritdoc
      */
@@ -19,7 +21,19 @@ class SfidaSearch extends Sfida
     {
         return [
             [['sfd_id', 'sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
-            [['sfd_titolo', 'sfd_sotto_titolo', 'sfd_descrizione', 'sfd_data_pubblicaz', 'sfd_data_inizio', 'sfd_data_fine', 'sfd_image_url'], 'safe'],
+            [
+                [
+                    'sfd_titolo',
+                    'sfd_sotto_titolo',
+                    'sfd_descrizione',
+                    'sfd_data_pubblicaz',
+                    'sfd_data_inizio',
+                    'sfd_data_fine',
+                    'sfd_image_url',
+                    'specialita',
+                    'tipologia',
+                ],
+                'safe'],
             [['sfd_obiettivo'], 'number'],
         ];
     }
@@ -44,9 +58,26 @@ class SfidaSearch extends Sfida
     {
         $query = Sfida::find();
 
+        // Include i join con le tabelle correlate sfida_specialita e tipologia_mzt (tramite il
+        // nome del metodo che crea la relazione (es: getSfdTipologia, togliengo il get e con
+        // la prima lettera minuscola)
+        $query->joinWith(['sfdSpecialita', 'sfdTipologia']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['specialita'] = [       // public property in SfidaSearch model
+            // in questo caso si usa il nome vero della tabella
+            'asc' => ['sfida_specialita.sfs_specialita' => SORT_ASC],
+            'desc' => ['sfida_specialita.sfs_specialita' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['tipologia'] = [        // public property in SfidaSearch model
+            // in questo caso si usa il nome vero della tabella
+            'asc' => ['tipologia_mzt.tmz_tipologia' => SORT_ASC],
+            'desc' => ['tipologia_mzt.tmz_tipologia' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -70,6 +101,10 @@ class SfidaSearch extends Sfida
             ->andFilterWhere(['like', 'sfd_sotto_titolo', $this->sfd_sotto_titolo])
             ->andFilterWhere(['like', 'sfd_descrizione', $this->sfd_descrizione])
             ->andFilterWhere(['like', 'sfd_image_url', $this->sfd_image_url]);
+
+        $query->andFilterWhere(['like', 'sfida_specialita.sfs_specialita', $this->specialita]);
+
+        $query->andFilterWhere(['like', 'tipologia_mzt.tmz_tipologia', $this->tipologia]);
 
         return $dataProvider;
     }

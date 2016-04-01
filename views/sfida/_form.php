@@ -24,9 +24,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sfd_data_fine')->textInput() ?>
 
-    <?= $form->field($model, 'sfd_specialita_id')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'sfd_specialita_id')
+                            ->dropDownList($modelSpecialita, ['prompt'=>'-Seleziona la specialita-']); ?>
 
-    <?= $form->field($model, 'sfd_tipologia_id')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'sfd_tipologia_id')
+        ->dropDownList($modelTipologia, ['prompt'=>'-Seleziona la tipologia-']); ?>
 
     <?= $form->field($model, 'sfd_obiettivo')->textInput(['maxlength' => 10]) ?>
 

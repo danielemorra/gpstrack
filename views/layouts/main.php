@@ -36,7 +36,7 @@ AppAsset::register($this);
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Uscite', 'url' => ['/attivita']],
-                    ['label' => 'Sfide', 'url' => ['/sfida']],
+//                  ['label' => 'Sfide', 'url' => ['/sfida']],
 //                 	['label' => 'Ub/Comp.', 'url' => ['/ubicazione-componente']],
                		[
                 		'label' => 'Attrezzatura',
@@ -60,6 +60,9 @@ AppAsset::register($this);
                 	[
                 		'label' => "Backend",
                 		'items' => [
+                                ['label' => 'Sfide', 'url' => Yii::$app->homeUrl.'?r=sfida'],
+                                ['label' => 'Specialita', 'url' => Yii::$app->homeUrl.'?r=sfida-specialita'],
+                                '<li class="divider"></li>',
                                 ['label' => 'Tipologie Attivita', 'url' => Yii::$app->homeUrl.'?r=tipologia-mzt'],
                                 '<li class="divider"></li>',
                 				['label' => 'Negozi', 'url' => Yii::$app->homeUrl.'?r=fornitori'],

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SfidaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sfidas';
+$this->title = 'Sfide';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sfida-index">
@@ -25,16 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'sfd_id',
+            //'sfd_id',
             'sfd_titolo',
             'sfd_sotto_titolo',
-            'sfd_descrizione',
-            'sfd_data_pubblicaz',
-            // 'sfd_data_inizio',
-            // 'sfd_data_fine',
+            //'sfd_descrizione',
+            'sfd_data_pubblicaz:datetime',
+             'sfd_data_inizio:datetime',
+             'sfd_data_fine:datetime',
             // 'sfd_specialita_id',
+            [
+                'attribute' => 'specialita',       // public property in SfidaSearch model
+                'value' => 'sfdSpecialita.sfs_specialita'
+            ],
             // 'sfd_tipologia_id',
-            // 'sfd_obiettivo',
+            [
+                'attribute' => 'tipologia',     // public property in SfidaSearch model
+                'value' => 'sfdTipologia.tmz_tipologia'
+            ],
+            'sfd_obiettivo',
             // 'sfd_image_url:url',
 
             ['class' => 'yii\grid\ActionColumn'],

@@ -56,17 +56,17 @@ class Sfida extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'sfd_id' => 'Sfd ID',
-            'sfd_titolo' => 'Sfd Titolo',
-            'sfd_sotto_titolo' => 'Sfd Sotto Titolo',
-            'sfd_descrizione' => 'Sfd Descrizione',
-            'sfd_data_pubblicaz' => 'Sfd Data Pubblicaz',
-            'sfd_data_inizio' => 'Sfd Data Inizio',
-            'sfd_data_fine' => 'Sfd Data Fine',
-            'sfd_specialita_id' => 'Sfd Specialita ID',
-            'sfd_tipologia_id' => 'Sfd Tipologia ID',
-            'sfd_obiettivo' => 'Sfd Obiettivo',
-            'sfd_image_url' => 'Sfd Image Url',
+            'sfd_id' => 'ID',
+            'sfd_titolo' => 'Titolo',
+            'sfd_sotto_titolo' => 'Sotto Titolo',
+            'sfd_descrizione' => 'Descrizione',
+            'sfd_data_pubblicaz' => 'Data Pubbli.',
+            'sfd_data_inizio' => 'Data Inizio',
+            'sfd_data_fine' => 'Data Fine',
+            'sfd_specialita_id' => 'Specialita',
+            'sfd_tipologia_id' => 'Tipologia',
+            'sfd_obiettivo' => 'Obiettivo',
+            'sfd_image_url' => 'Image Url',
         ];
     }
 
