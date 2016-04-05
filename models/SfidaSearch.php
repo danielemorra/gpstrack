@@ -108,4 +108,36 @@ class SfidaSearch extends Sfida
 
         return $dataProvider;
     }
+
+    public Static function getSfide($parStatoSfida, $parSpecialita, $parTipologia)
+    {
+        $sfidaModel = (new \yii\db\Query())->select('*');
+        $sfidaModel->from('sfida');
+        if ($parStatoSfida != "0") {
+            switch ($parStatoSfida) {
+                case "1":   // sfide in corso/imminenti
+                case null:   // sfide in corso/imminenti
+                    $sfidaModel->where('sfd_data_pubblicaz > NOW()');   // sfide che ancora non sono iniziate
+                    $sfidaModel->orWhere('sfd_data_inizio <= NOW()');
+                    $sfidaModel->andWhere('sfd_data_fine >= NOW()');
+//                    $sfidaModel->where('sfd_data_pubblicaz >= :dtPubb');
+//                    $sfidaModel->addParams([':dtPubb' => NOW()]);
+                    break;
+                case "2":   // sfide in corso
+                    $sfidaModel->where('sfd_data_inizio <= NOW()');
+                    $sfidaModel->andWhere('sfd_data_fine >= NOW()');
+                    break;
+                case "3":   // sfide imminenti
+                    $sfidaModel->where('sfd_data_pubblicaz > NOW()');   // sfide che ancora non sono iniziate
+                    break;
+                case "4":   // sfide terminate
+                    $sfidaModel->where('sfd_data_fine < NOW()');
+                    break;
+//                default:
+            }
+            $sfidaModel->all();
+        }
+
+        return $sfidaModel;
+    }
 }
