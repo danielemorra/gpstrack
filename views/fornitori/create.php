@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Fornitori */
 
-$this->title = 'Create Fornitori';
-$this->params['breadcrumbs'][] = ['label' => 'Fornitoris', 'url' => ['index']];
+$this->title = 'Nuovo Fornitore';
+$this->params['breadcrumbs'][] = ['label' => 'Fornitori', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fornitori-create">

@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cmp_componente')->textInput(['maxlength' => 100]) ?>
 
+    <?= $form->field($model, 'cmp_mostra_in_home')->checkbox() ?>
+
     <?= $form->field($model, 'cmp_qta_acq')->textInput() ?>
 
     <?= $form->field($model, 'cmp_prz_acq_unit')->textInput(['maxlength' => 10]) ?>
@@ -50,7 +52,9 @@ use yii\widgets\ActiveForm;
 		     ->dropDownList($modelUbicazCompon, ['prompt'=>'-Seleziona ubicazione-']);		/*dm9-160223*/
     /*dm9 fine*/  
     ?>
-    
+
+<!-- <?//= $form->field($model, 'cmp_utente_id')->textInput(['maxlength' => 10]) ?>-->
+
     <?= $form->field($model, 'cmp_note')->textInput(['maxlength' => 100]) ?>
 
     <div class="form-group">

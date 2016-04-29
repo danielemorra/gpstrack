@@ -61,7 +61,7 @@ class SfidaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($sfdObt)
     {
         $model = new Sfida();
         $modelSpecialita=ArrayHelper::map(SfidaSpecialita::find()
@@ -72,6 +72,15 @@ class SfidaController extends Controller
             ->orderby('tmz_tipologia')
             ->asArray()
             ->all(), 'tmz_id', 'tmz_tipologia');
+
+        if ($sfdObt == 'S') {
+            $model->scenario = 'sfida';
+            $model->sfd_sfida_obiet = 1;
+        }
+        else {
+            $model->scenario = 'obiettivo';
+            $model->sfd_sfida_obiet = 2;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->sfd_id]);

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TipologiaMztSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tipologia Mzts';
+$this->title = 'Tipologia Attrezzatura';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tipologia-mzt-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tipologia Mzt', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nuova Tipologia', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

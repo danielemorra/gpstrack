@@ -12,9 +12,9 @@ use app\models\Componenti;
  */
 class ComponentiSearch extends Componenti
 {
-	public $cmpIdFrn; /*dm9*/
-	public $cmpIdCat; /*dm9*/
-	public $cmpIdUbc; /*dm9*/
+	public $cmpIdFrn; /*model property*/
+	public $cmpIdCat; /*model property*/
+	public $cmpIdUbc; /*model property*/
 	
 	/**
      * @inheritdoc
@@ -22,8 +22,31 @@ class ComponentiSearch extends Componenti
     public function rules()
     {
         return [
-            [['cmp_id', 'cmp_qta_acq', 'cmp_mystuff2', 'cmp_id_frn', 'cmp_id_cat', 'cmp_id_ubc'], 'integer'],
-            [['cmp_marca', 'cmp_modello', 'cmp_componente', 'cmp_data_acquisto', 'cmp_data_dismissione', 'cmp_note', 'cmpIdFrn', 'cmpIdCat', 'cmpIdUbc'], 'safe'],
+            [
+                [
+                    'cmp_id',
+                    'cmp_qta_acq',
+                    'cmp_mystuff2',
+                    'cmp_id_frn',       /*model property*/
+                    'cmp_id_cat',       /*model property*/
+                    'cmp_id_ubc',        /*model property*/
+                    'cmp_utente_id'
+                ], 
+                'integer'],
+            [
+                [
+                    'cmp_marca', 
+                    'cmp_modello', 
+                    'cmp_componente', 
+                    'cmp_data_acquisto', 
+                    'cmp_data_dismissione',
+                    'cmp_mostra_in_home',
+                    'cmp_note', 
+                    'cmpIdFrn',         /*model property*/
+                    'cmpIdCat',         /*model property*/
+                    'cmpIdUbc'          /*model property*/
+                ], 
+                'safe'],
             [['cmp_prz_acq_unit'], 'number'],
         ];
     }
@@ -46,11 +69,11 @@ class ComponentiSearch extends Componenti
      */
     public function search($params)
     {
-        $query = Componenti::find();
+        $query = Componenti::find()->where('cmp_utente_id = ' .Yii::$app->user->id);
 
-        $query->joinWith(['cmpIdFrn']);	/*dm9*/
-        $query->joinWith(['cmpIdCat']);	/*dm9*/
-        $query->joinWith(['cmpIdUbc']);	/*dm9*/
+        $query->joinWith(['cmpIdFrn']);	/*nome relazione*/
+        $query->joinWith(['cmpIdCat']);	/*nome relazione*/
+        $query->joinWith(['cmpIdUbc']);	/*nome relazione*/
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,16 +81,16 @@ class ComponentiSearch extends Componenti
 
         /*dm9*inizio*/
         $dataProvider->sort->attributes['cmpIdFrn'] = [
-        		'asc' => ['cmpIdFrn.frn_nome' => SORT_ASC],
-        		'desc' => ['cmpIdFrn.frn_nome' => SORT_DESC],
+        		'asc' => ['fornitori.frn_nome' => SORT_ASC],         /*nome tabella.nome campo*/
+        		'desc' => ['fornitori.frn_nome' => SORT_DESC],
         ];
         $dataProvider->sort->attributes['cmpIdCat'] = [
-        		'asc' => ['cmpIdCat.cat_categoria' => SORT_ASC],
-        		'desc' => ['cmpIdCat.cat_categoria' => SORT_DESC],
+        		'asc' => ['categoria.cat_categoria' => SORT_ASC],        /*nome tabella.nome campo*/
+        		'desc' => ['categoria.cat_categoria' => SORT_DESC],
         ];
         $dataProvider->sort->attributes['cmpIdUbc'] = [
-        		'asc' => ['cmpIdUbc.ubc_contenitore' => SORT_ASC],
-        		'desc' => ['cmpIdUbc.ubc_contenitore' => SORT_DESC],
+        		'asc' => ['ubicazione_componente.ubc_contenitore' => SORT_ASC],      /*nome tabella.nome campo*/
+        		'desc' => ['ubicazione_componente.ubc_contenitore' => SORT_DESC],
         ];
 		/*dm9*fine*/
 	        
@@ -91,6 +114,7 @@ class ComponentiSearch extends Componenti
             'cmp_id_frn' => $this->cmp_id_frn,
             'cmp_id_cat' => $this->cmp_id_cat,
             'cmp_id_ubc' => $this->cmp_id_ubc,
+            'cmp_utente_id' => $this->cmp_utente_id,
         ]);
 
         $query->andFilterWhere(['like', 'cmp_marca', $this->cmp_marca])
@@ -98,7 +122,7 @@ class ComponentiSearch extends Componenti
             ->andFilterWhere(['like', 'cmp_componente', $this->cmp_componente])
             ->andFilterWhere(['like', 'cmp_note', $this->cmp_note]);
 
-        $query->andFilterWhere(['like', 'fornitori.frn_nome', $this->cmpIdFrn]);		/*dm9*/
+        $query->andFilterWhere(['like', 'fornitori.frn_nome', $this->cmpIdFrn]);		/*nome tabella.nome campo , model property*/
         $query->andFilterWhere(['like', 'categoria.cat_categoria', $this->cmpIdCat]);		/*dm9*/
         $query->andFilterWhere(['like', 'ubicazione_componente.ubc_contenitore', $this->cmpIdUbc]);		/*dm9*/
         

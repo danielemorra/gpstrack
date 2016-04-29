@@ -35,12 +35,35 @@ class Attivita extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ats_data', 'ats_mezzo_trasporto_id', 'ats_distanza_km', 'ats_dislivello', 'ats_utente_id'], 'required'],
-            [['ats_data', 'ats_tempo'], 'safe'],
-            [['ats_mezzo_trasporto_id', 'ats_dislivello', 'ats_utente_id'], 'integer'],
-            [['ats_distanza_km'], 'number'],
-            [['ats_percorso'], 'string', 'max' => 100],
-        	/*dm9** [['ats_data'], 'date','format' => 'd-m-Y'],		*/
+            [
+                [
+                    'ats_data',
+                    'ats_mezzo_trasporto_id',
+                    'ats_distanza_km',
+                    'ats_dislivello',
+                    'ats_utente_id']
+                , 'required'],
+            [
+                [
+                    'ats_data',
+                    'ats_tempo']
+                , 'safe'],
+            [
+                [
+                    'ats_mezzo_trasporto_id',
+                    'ats_dislivello',
+                    'ats_utente_id'
+                ], 'integer'
+            ],
+            [
+                [
+                    'ats_distanza_km'
+                ], 'number'],
+            [
+                [
+                    'ats_percorso'
+                ], 'string', 'max' => 100
+            ],
         ];
     }
 
@@ -50,14 +73,14 @@ class Attivita extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ats_id' => 'Ats ID',
-            'ats_data' => 'Ats Data',
-            'ats_mezzo_trasporto_id' => 'Ats Mezzo Trasporto ID',
-            'ats_tempo' => 'Ats Tempo',
-            'ats_distanza_km' => 'Ats Distanza Km',
-            'ats_dislivello' => 'Ats Dislivello',
-            'ats_percorso' => 'Ats Percorso',
-            'ats_utente_id' => 'Ats Utente ID',
+            'ats_id' => 'Id',
+            'ats_data' => 'Data',
+            'ats_mezzo_trasporto_id' => 'Attrezzatura',
+            'ats_tempo' => 'Tempo',
+            'ats_distanza_km' => 'Distanza (Km)',
+            'ats_dislivello' => 'Dislivello (Mt)',
+            'ats_percorso' => 'Percorso',
+            'ats_utente_id' => 'Utente',
         ];
     }
 

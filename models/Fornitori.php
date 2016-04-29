@@ -29,7 +29,7 @@ class Fornitori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['frn_nome'], 'required'],
+            [['frn_nome', 'frn_utente_id'], 'required'],
             [['frn_nome', 'frn_sito_web'], 'string', 'max' => 100]
         ];
     }
@@ -40,9 +40,10 @@ class Fornitori extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'frn_id' => 'Frn ID',
-            'frn_nome' => 'Frn Nome',
-            'frn_sito_web' => 'Frn Sito Web',
+            'frn_id' => 'Id',
+            'frn_nome' => 'Negozio',
+            'frn_sito_web' => 'Sito Web',
+            'frn_utente_id' => 'Utente Id',
         ];
     }
 
@@ -52,5 +53,13 @@ class Fornitori extends \yii\db\ActiveRecord
     public function getComponentis()
     {
         return $this->hasMany(Componenti::className(), ['cmp_id_frn' => 'frn_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFrnUtente()
+    {
+        return $this->hasOne(Utente::className(), ['ute_id' => 'frn_utente_id']);
     }
 }

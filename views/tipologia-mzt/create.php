@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TipologiaMzt */
 
-$this->title = 'Create Tipologia Mzt';
-$this->params['breadcrumbs'][] = ['label' => 'Tipologia Mzts', 'url' => ['index']];
+$this->title = 'Nuova Tipologia Attrezzatura';
+$this->params['breadcrumbs'][] = ['label' => 'Tipologia Attrezzatura', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tipologia-mzt-create">

@@ -18,7 +18,7 @@ class UbicazioneComponenteSearch extends UbicazioneComponente
     public function rules()
     {
         return [
-            [['ubc_id'], 'integer'],
+            [['ubc_id', 'ubc_utente_id'], 'integer'],
             [['ubc_contenitore', 'ubc_ubicazione', 'ubc_note'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class UbicazioneComponenteSearch extends UbicazioneComponente
      */
     public function search($params)
     {
-        $query = UbicazioneComponente::find();
+        $query = UbicazioneComponente::find()->where('ubc_utente_id = ' .Yii::$app->user->id);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,6 +57,7 @@ class UbicazioneComponenteSearch extends UbicazioneComponente
 
         $query->andFilterWhere([
             'ubc_id' => $this->ubc_id,
+            'ubc_utente_id' => $this->ubc_utente_id,
         ]);
 
         $query->andFilterWhere(['like', 'ubc_contenitore', $this->ubc_contenitore])

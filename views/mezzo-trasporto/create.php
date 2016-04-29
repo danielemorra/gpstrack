@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\MezzoTrasporto */
 
-$this->title = 'Create Mezzo Trasporto';
-$this->params['breadcrumbs'][] = ['label' => 'Mezzo Trasportos', 'url' => ['index']];
+$this->title = 'Nuova Attrezzatura';
+$this->params['breadcrumbs'][] = ['label' => 'Attrezzatura', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mezzo-trasporto-create">

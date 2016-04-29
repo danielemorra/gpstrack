@@ -6,23 +6,26 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Attivita */
 
-$this->title = $model->ats_id;
-$this->params['breadcrumbs'][] = ['label' => 'Attivitas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Uscita | ' .$model->ats_data;
+$this->params['breadcrumbs'][] = ['label' => 'Uscita', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->ats_data;
 ?>
 <div class="attivita-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->ats_data. ' '.$model->ats_percorso) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->ats_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->ats_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(!Yii::$app->user->isGuest ){ ?>
+            <?= Html::a('Nuova Uscita', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Modifica', ['update', 'id' => $model->ats_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Elimina', ['delete', 'id' => $model->ats_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Vuoi eliminare defitivamente questa uscita ?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php } ?>
     </p>
 
     <?= DetailView::widget([
@@ -30,12 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'ats_id',
             'ats_data',
-            'ats_mezzo_trasporto_id',
+            [
+                'label' => 'Attrezzatura',
+                'value' => $model->atsMezzoTrasporto->mzt_mezzo_trasporto,
+            ],
             'ats_tempo',
             'ats_distanza_km',
             'ats_dislivello',
             'ats_percorso',
-            'ats_utente_id',
+            [
+                'label' => 'Utente',
+                'value' => $model->atsUtente->ute_username .' ('. $model->ats_utente_id .')',
+            ],
         ],
     ]) ?>
 

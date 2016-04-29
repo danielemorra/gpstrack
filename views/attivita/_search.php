@@ -15,15 +15,15 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'ats_id') ?>
+    <?php // echo $form->field($model, 'ats_id') ?>
 
-    <?= $form->field($model, 'ats_data') ?>
+    <?php // echo $form->field($model, 'ats_data') ?>
 
-    <?= $form->field($model, 'ats_mezzo_trasporto_id') ?>
+    <?php // echo $form->field($model, 'ats_mezzo_trasporto_id') ?>
 
-    <?= $form->field($model, 'ats_tempo') ?>
+    <?php // echo $form->field($model, 'ats_tempo') ?>
 
-    <?= $form->field($model, 'ats_distanza_km') ?>
+    <?php // echo $form->field($model, 'ats_distanza_km') ?>
 
     <?php // echo $form->field($model, 'ats_dislivello') ?>
 

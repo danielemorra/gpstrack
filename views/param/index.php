@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ParamSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Params';
+$this->title = 'Parametri';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="param-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Param', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nuovo Parametro', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

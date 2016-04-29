@@ -18,7 +18,7 @@ class MezzoTrasportoSearch extends MezzoTrasporto
 	//*dm9* 1) prendere nota del nome della relazione esterna nel Model della tabella con la FK (in questo caso:  getMztTipologia a mztTipologia)
 	//*dm9* da Models\MezzoTrasportoSearch.php :
 	//*dm9* 2) dichiarare una variabile public con il nome della relazione ($mztTipologia)
-	//*dm9* 3) aggiungere nel metodo rules la proprietà "safe" per la relazione (in questo caso mztTipologia)
+	//*dm9* 3) aggiungere nel metodo rules la proprietï¿½ "safe" per la relazione (in questo caso mztTipologia)
 	//*dm9* 4) aggiungere nel metodo search la join con la tabella esterna ($query->joinWith(['mztTipologia']);)
 	//*dm9* 4) aggiungere, sempre nel metodo search, l'istrizione per il sort del campo descrittivo:
 	//*dm9* 				($dataProvider->sort->attributes['mztTipologia'] = [
@@ -34,16 +34,28 @@ class MezzoTrasportoSearch extends MezzoTrasporto
     //*dm9*					'value' => 'mztTipologia.tmz_tipologia'
     //*dm9*					],
 	
-	public $mztTipologia; /*dm9*/
-	
+	public $mztTipologia;       /*model property*/
+
 	/**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['mzt_id', 'mzt_tipologia_id', 'mzt_utente_id'], 'integer'],
-            [['mzt_mezzo_trasporto', 'mzt_data_inizio_utilizzo', 'mzt_data_fine_utilizzo', 'mztTipologia'], 'safe'],
+            [
+                [
+                    'mzt_id',
+                    'mzt_tipologia_id',
+                    'mzt_utente_id'
+                ],
+                'integer'],
+            [
+                [
+                    'mzt_mezzo_trasporto',
+                    'mzt_data_inizio_utilizzo',
+                    'mzt_data_fine_utilizzo',
+                    'mztTipologia'],            /*model property*/
+                'safe'],
         ];
     }
 
@@ -65,21 +77,19 @@ class MezzoTrasportoSearch extends MezzoTrasporto
      */
     public function search($params)
     {
-        $query = MezzoTrasporto::find();
+        $query = MezzoTrasporto::find()->where('mzt_utente_id = ' .Yii::$app->user->id);
 
-        $query->joinWith(['mztTipologia']);	/*dm9*/
-        
+        $query->joinWith(['mztTipologia']);	            /*nome relazione*/
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        /*dm9*inizio*/
-        $dataProvider->sort->attributes['mztTipologia'] = [
-        		'asc' => ['mztTipologia.tmz_tipologia' => SORT_ASC],
-        		'desc' => ['mztTipologia.tmz_tipologia' => SORT_DESC],
+        $dataProvider->sort->attributes['mztTipologia'] = [                 /*model property*/
+            'asc' => ['tipologia_mzt.tmz_tipologia' => SORT_ASC],        /*nome tabella.nome campo*/
+            'desc' => ['tipologia_mzt.tmz_tipologia' => SORT_DESC],
         ];
-        /*dm9*fine*/
-        
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -92,13 +102,12 @@ class MezzoTrasportoSearch extends MezzoTrasporto
             'mzt_id' => $this->mzt_id,
             'mzt_data_inizio_utilizzo' => $this->mzt_data_inizio_utilizzo,
             'mzt_data_fine_utilizzo' => $this->mzt_data_fine_utilizzo,
-//*dm9*     'mzt_tipologia_id' => $this->mzt_tipologia_id,
             'mzt_utente_id' => $this->mzt_utente_id,
         ]);
 
-        $query->andFilterWhere(['like', 'mzt_mezzo_trasporto', $this->mzt_mezzo_trasporto]);
+        $query->andFilterWhere(['like', 'mezzo_trasporto', $this->mzt_mezzo_trasporto]);        /*nome tabella.nome campo , model property*/
 
-        $query->andFilterWhere(['like', 'tipologia_mzt.tmz_tipologia', $this->mztTipologia]);		/*dm9*/
+        $query->andFilterWhere(['like', 'tipologia_mzt.tmz_tipologia', $this->mztTipologia]);		/*nome tabella.nome campo , model property*/
         
         return $dataProvider;
     }

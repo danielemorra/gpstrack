@@ -6,20 +6,21 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Param */
 
-$this->title = $model->par_id;
-$this->params['breadcrumbs'][] = ['label' => 'Params', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Parametri | ' .$model->par_parametro;
+$this->params['breadcrumbs'][] = ['label' => 'Parametri', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->par_parametro;
 ?>
 <div class="param-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->par_parametro) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->par_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->par_id], [
+        <?= Html::a('Nuovo Parametro', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Modifica', ['update', 'id' => $model->par_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Elimina', ['delete', 'id' => $model->par_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Vuoi eliminare defitivamente questo Parametro ?',
                 'method' => 'post',
             ],
         ]) ?>

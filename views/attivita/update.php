@@ -5,14 +5,14 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Attivita */
 
-$this->title = 'Update Attivita: ' . ' ' . $model->ats_id;
-$this->params['breadcrumbs'][] = ['label' => 'Attivitas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->ats_id, 'url' => ['view', 'id' => $model->ats_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Modifica Uscita: ' . ' ' . $model->ats_data;
+$this->params['breadcrumbs'][] = ['label' => 'Uscita', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->ats_data, 'url' => ['view', 'id' => $model->ats_id]];
+$this->params['breadcrumbs'][] = 'Modifica';
 ?>
 <div class="attivita-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->ats_data. ' '.$model->ats_percorso) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

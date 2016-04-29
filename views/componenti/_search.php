@@ -43,6 +43,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'cmp_id_ubc') ?>
 
+    <?php // echo $form->field($model, 'cmp_utente_id') ?>
+    
     <?php // echo $form->field($model, 'cmp_note') ?>
 
     <div class="form-group">

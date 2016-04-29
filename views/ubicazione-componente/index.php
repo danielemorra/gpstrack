@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UbicazioneComponenteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ubicazione Componentes';
+$this->title = 'Ubicazione Componenti';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ubicazione-componente-index">
@@ -16,8 +16,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ubicazione Componente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php if(!Yii::$app->user->isGuest ){ ?>
+            <?= Html::a('Nuova Ubicazione', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
+
+    <?php
+    //  Abilita le immagini dei link all'aupdate/delete solo per gli utenti loggati
+    // for Guests
+    if(Yii::$app->user->isGuest)
+    {
+        $actionColumn =  [   'class' => 'yii\grid\ActionColumn',
+            'template' => '{view}',
+            'contentOptions' => ['style' => 'width:34px; font-size:18px;'],
+            'visible' => true,
+        ];
+    }
+    // for  users
+    else
+    {
+        $actionColumn =   [   'class' => 'yii\grid\ActionColumn',
+            'template' => '{view} {update} {delete}',
+            'contentOptions' => ['style' => 'width:34px; font-size:18px;'],
+            'visible' => true,
+        ];
+    }
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,8 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'ubc_contenitore',
             'ubc_ubicazione',
             'ubc_note',
+//            'ubc_utente_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
+            $actionColumn
         ],
     ]); ?>
 

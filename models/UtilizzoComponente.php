@@ -33,9 +33,24 @@ class UtilizzoComponente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['utc_componente_id', 'utc_qta_utilizzo', 'utc_mezzo_id', 'utc_data_montaggio'], 'required'],
-            [['utc_componente_id', 'utc_qta_utilizzo', 'utc_mezzo_id'], 'integer'],
-            [['utc_data_montaggio', 'utc_data_smontaggio'], 'safe']
+            [
+                [
+                    'utc_componente_id',
+                    'utc_qta_utilizzo',
+                    'utc_mezzo_id',
+                    'utc_data_montaggio'
+                ], 'required'],
+            [
+                [
+                    'utc_componente_id',
+                    'utc_qta_utilizzo',
+                    'utc_mezzo_id'
+                ], 'integer'],
+            [
+                [
+                    'utc_data_montaggio',
+                    'utc_data_smontaggio'
+                ], 'safe']
         ];
     }
 
@@ -45,12 +60,12 @@ class UtilizzoComponente extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'utc_id' => 'Utc ID',
-            'utc_componente_id' => 'Componente',	/*dm9*/
-        	'utc_qta_utilizzo' => 'Utc Qta Utilizzo',
-        	'utc_mezzo_id' => 'Bici',	/*dm9*/
-            'utc_data_montaggio' => 'Utc Data Montaggio',
-            'utc_data_smontaggio' => 'Utc Data Smontaggio',
+            'utc_id' => 'Id',
+            'utc_componente_id' => 'Componente',
+        	'utc_qta_utilizzo' => 'Qta Utilizzo',
+        	'utc_mezzo_id' => 'Attrezzatura',
+            'utc_data_montaggio' => 'Dt Montaggio',
+            'utc_data_smontaggio' => 'Dt Smontaggio',
         ];
     }
 

@@ -6,23 +6,26 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\MezzoTrasporto */
 
-$this->title = $model->mzt_id;
-$this->params['breadcrumbs'][] = ['label' => 'Mezzo Trasportos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Attrezzatura | ' .$model->mzt_mezzo_trasporto;
+$this->params['breadcrumbs'][] = ['label' => 'Attrezzatura', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->mzt_mezzo_trasporto;
 ?>
 <div class="mezzo-trasporto-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->mzt_mezzo_trasporto); ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->mzt_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->mzt_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(!Yii::$app->user->isGuest ){ ?>
+            <?= Html::a('Nuova Attrezzatura', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Modifica', ['update', 'id' => $model->mzt_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Elimina', ['delete', 'id' => $model->mzt_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Vuoi eliminare defitivamente questa Attrezzatura ?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php } ?>
     </p>
 
     <?= DetailView::widget([
@@ -32,8 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'mzt_mezzo_trasporto',
             'mzt_data_inizio_utilizzo',
             'mzt_data_fine_utilizzo',
-            'mzt_tipologia_id',
-            'mzt_utente_id',
+            [
+                'label' => 'Tipologia',
+                'value' => $model->mztTipologia->tmz_tipologia,
+            ],
+            [
+                'label' => 'Utente',
+                'value' => $model->mztUtente->ute_username,
+            ],
         ],
     ]) ?>
 

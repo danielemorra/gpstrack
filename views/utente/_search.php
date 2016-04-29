@@ -19,7 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'ute_username') ?>
 
-    <?= $form->field($model, 'ute_password') ?>
+    <?= $form->field($model, 'ute_password_hash') ?>
+
+    <?= $form->field($model, 'ute_auth_key') ?>
+
+    <?= $form->field($model, 'ute_access_token') ?>
 
     <?= $form->field($model, 'ute_email') ?>
 

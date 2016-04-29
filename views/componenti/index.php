@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ComponentiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Componentis';
+$this->title = 'Componenti';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="componenti-index">
@@ -16,8 +16,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Componenti', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php if(!Yii::$app->user->isGuest ){ ?>
+            <?= Html::a('Nuovo Componente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
+
+    <?php
+    //  Abilita le immagini dei link all'aupdate/delete solo per gli utenti loggati
+    // for Guests
+    if(Yii::$app->user->isGuest)
+    {
+        $actionColumn =  [   'class' => 'yii\grid\ActionColumn',
+            'template' => '{view}',
+            'contentOptions' => ['style' => 'width:34px; font-size:18px;'],
+            'visible' => true,
+        ];
+    }
+    // for  users
+    else
+    {
+        $actionColumn =   [   'class' => 'yii\grid\ActionColumn',
+            'template' => '{view} {update} {delete}',
+            'contentOptions' => ['style' => 'width:34px; font-size:18px;'],
+            'visible' => true,
+        ];
+    }
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //*dm9*     'cmp_marca',
 //*dm9*     'cmp_modello',
             'cmp_componente',
-            /*dm9* inizio*/
+            'cmp_mostra_in_home',
             [
             'attribute' => 'cmpIdCat',
             'label' => 'Categoria',
@@ -40,22 +64,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'label' => 'Ubicazione',
             'value' => 'cmpIdUbc.ubc_contenitore'
             ],
-			/*dm9* fine*/
             'cmp_qta_acq',
             'cmp_qta_util',
             'cmp_prz_acq_unit',
             'cmp_data_acquisto',
             'cmp_data_dismissione',
             'cmp_mystuff2',
-            /*dm9* inizio*/
             [
             'attribute' => 'cmpIdFrn',
             'value' => 'cmpIdFrn.frn_nome'
             ],
-			/*dm9* fine*/
+            // 'cmp_utente_id',
             'cmp_note',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
+            $actionColumn
         ],
     ]); ?>
 

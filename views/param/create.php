@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Param */
 
-$this->title = 'Create Param';
-$this->params['breadcrumbs'][] = ['label' => 'Params', 'url' => ['index']];
+$this->title = 'Nuovo Parametro';
+$this->params['breadcrumbs'][] = ['label' => 'Parametri', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="param-create">

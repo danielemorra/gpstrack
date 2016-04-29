@@ -6,20 +6,21 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Fornitori */
 
-$this->title = $model->frn_id;
-$this->params['breadcrumbs'][] = ['label' => 'Fornitoris', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Fornitori | ' .$model->frn_nome;
+$this->params['breadcrumbs'][] = ['label' => 'Fornitori', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->frn_nome;
 ?>
 <div class="fornitori-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->frn_nome) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->frn_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->frn_id], [
+        <?= Html::a('Nuovo Fornitore', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Modifica', ['update', 'id' => $model->frn_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Elimina', ['delete', 'id' => $model->frn_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Vuoi eliminare defitivamente questo Fornitore ?',
                 'method' => 'post',
             ],
         ]) ?>

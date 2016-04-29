@@ -19,7 +19,7 @@ class UtenteSearch extends Utente
     {
         return [
             [['ute_id'], 'integer'],
-            [['ute_username', 'ute_password', 'ute_email'], 'safe'],
+            [['ute_username', 'ute_password_hash', 'ute_auth_key', 'ute_access_token', 'ute_email'], 'safe'],
         ];
     }
 
@@ -60,7 +60,8 @@ class UtenteSearch extends Utente
         ]);
 
         $query->andFilterWhere(['like', 'ute_username', $this->ute_username])
-            ->andFilterWhere(['like', 'ute_password', $this->ute_password])
+            ->andFilterWhere(['like', 'ute_auth_key', $this->ute_auth_key])
+            ->andFilterWhere(['like', 'ute_access_token', $this->ute_access_token])
             ->andFilterWhere(['like', 'ute_email', $this->ute_email]);
 
         return $dataProvider;

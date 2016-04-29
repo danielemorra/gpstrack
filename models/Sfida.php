@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "sfida".
  *
  * @property string $sfd_id
+ * @property integer $sfd_sfida_obiet
  * @property string $sfd_titolo
  * @property string $sfd_sotto_titolo
  * @property string $sfd_descrizione
@@ -25,6 +26,8 @@ use Yii;
  */
 class Sfida extends \yii\db\ActiveRecord
 {
+    const SCENARIO_SFIDA = 'sfida';
+    const SCENARIO_OBIETTIVO = 'obiettivo';
     /**
      * @inheritdoc
      */
@@ -33,15 +36,49 @@ class Sfida extends \yii\db\ActiveRecord
         return 'sfida';
     }
 
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_SFIDA] = [
+                                            'sfd_id',
+                                            'sfd_sfida_obiet',
+                                            'sfd_titolo',
+                                            'sfd_sotto_titolo',
+                                            'sfd_descrizione',
+                                            'sfd_descrizione',
+                                            'sfd_data_inizio',
+                                            'sfd_data_fine',
+                                            'sfd_specialita_id',
+                                            'sfd_tipologia_id',
+                                            'sfd_image_url'
+                                            ];
+        $scenarios[self::SCENARIO_OBIETTIVO] = [
+                                            'sfd_id',
+                                            'sfd_sfida_obiet',
+                                            'sfd_titolo',
+                                            'sfd_sotto_titolo',
+                                            'sfd_descrizione',
+                                            'sfd_descrizione',
+                                            'sfd_data_inizio',
+                                            'sfd_data_fine',
+                                            'sfd_specialita_id',
+                                            'sfd_tipologia_id',
+                                            'sfd_obiettivo',
+                                            'sfd_image_url'
+                                            ];
+        return $scenarios;
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['sfd_sotto_titolo', 'sfd_specialita_id', 'sfd_tipologia_id'], 'required'],
+            [['sfd_sfida_obiet', 'sfd_sotto_titolo', 'sfd_specialita_id', 'sfd_tipologia_id', 'sfd_obiettivo'], 'required', 'on' => self::SCENARIO_OBIETTIVO],
+            [['sfd_sfida_obiet', 'sfd_sotto_titolo', 'sfd_specialita_id', 'sfd_tipologia_id'], 'required', 'on' => self::SCENARIO_SFIDA],
             [['sfd_data_pubblicaz', 'sfd_data_inizio', 'sfd_data_fine'], 'safe'],
-            [['sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
+            [['sfd_sfida_obiet', 'sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
             [['sfd_obiettivo'], 'number'],
             [['sfd_titolo'], 'string', 'max' => 50],
             [['sfd_sotto_titolo'], 'string', 'max' => 100],
@@ -57,6 +94,7 @@ class Sfida extends \yii\db\ActiveRecord
     {
         return [
             'sfd_id' => 'ID',
+            'sfd_sfida_obiet' => 'Sfd Sfida Obiet',
             'sfd_titolo' => 'Titolo',
             'sfd_sotto_titolo' => 'Sotto Titolo',
             'sfd_descrizione' => 'Descrizione',

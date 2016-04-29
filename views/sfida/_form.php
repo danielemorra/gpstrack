@@ -12,17 +12,24 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?php //$model->sfd_sfida_obiet = '1'; ?>
+    <!--<?//= $form->field($model, 'sfd_sfida_obiet')->radioList([
+//        '1' => 'Sfida',
+//        '2' => 'Obiettivo',
+//    ])->label(false);
+//    ?>-->
+
     <?= $form->field($model, 'sfd_titolo')->textInput(['maxlength' => 50]) ?>
 
     <?= $form->field($model, 'sfd_sotto_titolo')->textInput(['maxlength' => 100]) ?>
 
     <?= $form->field($model, 'sfd_descrizione')->textInput(['maxlength' => 500]) ?>
 
-    <?= $form->field($model, 'sfd_data_pubblicaz')->textInput() ?>
+    <?= $form->field($model, 'sfd_data_pubblicaz')->textInput(['value' => date( 'Y-m-d', strtotime( $model->sfd_data_pubblicaz ) )]) ?>
 
-    <?= $form->field($model, 'sfd_data_inizio')->textInput() ?>
+    <?= $form->field($model, 'sfd_data_inizio')->textInput(['value' => date( 'Y-m-d', strtotime( $model->sfd_data_inizio ) )]) ?>
 
-    <?= $form->field($model, 'sfd_data_fine')->textInput() ?>
+    <?= $form->field($model, 'sfd_data_fine')->textInput(['value' => date( 'Y-m-d', strtotime( $model->sfd_data_fine ) )]) ?>
 
     <?= $form->field($model, 'sfd_specialita_id')
                             ->dropDownList($modelSpecialita, ['prompt'=>'-Seleziona la specialita-']); ?>

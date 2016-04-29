@@ -49,12 +49,12 @@ class MezzoTrasporto extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'mzt_id' => 'Mzt ID',
-            'mzt_mezzo_trasporto' => 'Mzt Mezzo Trasporto',
-            'mzt_data_inizio_utilizzo' => 'Mzt Data Inizio Utilizzo',
-            'mzt_data_fine_utilizzo' => 'Mzt Data Fine Utilizzo',
-            'mzt_tipologia_id' => 'Mzt Tipologia ID',
-            'mzt_utente_id' => 'Mzt Utente ID',
+            'mzt_id' => 'Id',
+            'mzt_mezzo_trasporto' => 'Attrezzatura',
+            'mzt_data_inizio_utilizzo' => 'Dt Inizio Util.',
+            'mzt_data_fine_utilizzo' => 'Dt Fine Util.',
+            'mzt_tipologia_id' => 'Tipologia',
+            'mzt_utente_id' => 'Utente',
         ];
     }
 

@@ -39,8 +39,8 @@ class TipologiaMzt extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tmz_id' => 'Tmz ID',
-            'tmz_tipologia' => 'Tmz Tipologia',
+            'tmz_id' => 'Id',
+            'tmz_tipologia' => 'Tipologia',
         ];
     }
 

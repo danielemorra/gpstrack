@@ -12,16 +12,28 @@ use app\models\UtilizzoComponente;
  */
 class UtilizzoComponenteSearch extends UtilizzoComponente
 {
-	public $utcComponente; /*dm9*/
-	public $utcMezzo; /*dm9*/
+	public $utcComponente;      /*model property*/
+	public $utcMezzo;           /*model property*/
 	/**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['utc_id', 'utc_componente_id', 'utc_qta_utilizzo', 'utc_mezzo_id'], 'integer'],
-            [['utc_data_montaggio', 'utc_data_smontaggio', 'utcComponente', 'utcMezzo'], 'safe'],
+            [
+                [
+                    'utc_id', 
+                    'utc_componente_id', 
+                    'utc_qta_utilizzo', 
+                    'utc_mezzo_id'
+                ], 'integer'],
+            [
+                [
+                    'utc_data_montaggio', 
+                    'utc_data_smontaggio', 
+                    'utcComponente', 
+                    'utcMezzo'
+                ], 'safe'],
         ];
     }
 
@@ -45,22 +57,20 @@ class UtilizzoComponenteSearch extends UtilizzoComponente
     {
         $query = UtilizzoComponente::find();
 
-        $query->joinWith(['utcComponente', 'utcMezzo']);	/*dm9*/
+        $query->joinWith(['utcComponente', 'utcMezzo']);	/*nome relazione*/
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        /*dm9*inizio*/
-        $dataProvider->sort->attributes['utcComponente'] = [
-        		'asc' => ['utcComponente.cmp_componente' => SORT_ASC],
-        		'desc' => ['utcComponente.cmp_componente' => SORT_DESC],
+        $dataProvider->sort->attributes['utcComponente'] = [                /*model property*/
+        		'asc' => ['componenti.cmp_componente' => SORT_ASC],         /*nome tabella.nome campo*/
+        		'desc' => ['componenti.cmp_componente' => SORT_DESC],
         ];
-        $dataProvider->sort->attributes['utcMezzo'] = [
-        		'asc' => ['utcMezzo.cmp_componente' => SORT_ASC],
-        		'desc' => ['utcMezzo.cmp_componente' => SORT_DESC],
+        $dataProvider->sort->attributes['utcMezzo'] = [                         /*model property*/
+                'asc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_ASC],    /*nome tabella.nome campo*/
+        		'desc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_DESC],
         ];
-        /*dm9*fine*/
         
         $this->load($params);
 
@@ -72,14 +82,12 @@ class UtilizzoComponenteSearch extends UtilizzoComponente
 
         $query->andFilterWhere([
             'utc_id' => $this->utc_id,
-//*dm9*     'utc_componente_id' => $this->utc_componente_id,
-//*dm9*    	'utc_mezzo_id' => $this->utc_mezzo_id,
             'utc_qta_utilizzo' => $this->utc_qta_utilizzo,
             'utc_data_montaggio' => $this->utc_data_montaggio,
             'utc_data_smontaggio' => $this->utc_data_smontaggio,
         ]);
-        $query->andFilterWhere(['like', 'componenti.cmp_componente', $this->utcComponente]);		/*dm9*/
-        $query->andFilterWhere(['like', 'mezzo_trasporto.mzt_mezzo_trasporto', $this->utcMezzo]);		/*dm9*/
+        $query->andFilterWhere(['like', 'componenti.cmp_componente', $this->utcComponente]);		/*nome tabella.nome campo , model property*/
+        $query->andFilterWhere(['like', 'mezzo_trasporto.mzt_mezzo_trasporto', $this->utcMezzo]);
         
         return $dataProvider;
     }

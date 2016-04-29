@@ -12,8 +12,8 @@ use app\models\Sfida;
  */
 class SfidaSearch extends Sfida
 {
-    public $specialita;
-    public $tipologia;
+    public $specialita;     /*model property*/
+    public $tipologia;      /*model property*/
     /**
      * @inheritdoc
      */
@@ -30,8 +30,8 @@ class SfidaSearch extends Sfida
                     'sfd_data_inizio',
                     'sfd_data_fine',
                     'sfd_image_url',
-                    'specialita',
-                    'tipologia',
+                    'specialita',       /*model property*/
+                    'tipologia',        /*model property*/
                 ],
                 'safe'],
             [['sfd_obiettivo'], 'number'],
@@ -61,21 +61,21 @@ class SfidaSearch extends Sfida
         // Include i join con le tabelle correlate sfida_specialita e tipologia_mzt (tramite il
         // nome del metodo che crea la relazione (es: getSfdTipologia, togliengo il get e con
         // la prima lettera minuscola)
-        $query->joinWith(['sfdSpecialita', 'sfdTipologia']);
+        $query->joinWith(['sfdSpecialita', 'sfdTipologia']);    /*nome relazione*/
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['specialita'] = [       // public property in SfidaSearch model
+        $dataProvider->sort->attributes['specialita'] = [       /*model property*/
             // in questo caso si usa il nome vero della tabella
-            'asc' => ['sfida_specialita.sfs_specialita' => SORT_ASC],
+            'asc' => ['sfida_specialita.sfs_specialita' => SORT_ASC],       /*nome tabella.nome campo*/
             'desc' => ['sfida_specialita.sfs_specialita' => SORT_DESC],
         ];
 
-        $dataProvider->sort->attributes['tipologia'] = [        // public property in SfidaSearch model
+        $dataProvider->sort->attributes['tipologia'] = [        /*model property*/
             // in questo caso si usa il nome vero della tabella
-            'asc' => ['tipologia_mzt.tmz_tipologia' => SORT_ASC],
+            'asc' => ['tipologia_mzt.tmz_tipologia' => SORT_ASC],           /*nome tabella.nome campo*/
             'desc' => ['tipologia_mzt.tmz_tipologia' => SORT_DESC],
         ];
 
@@ -89,6 +89,7 @@ class SfidaSearch extends Sfida
 
         $query->andFilterWhere([
             'sfd_id' => $this->sfd_id,
+            'sfd_sfida_obiet' => $this->sfd_sfida_obiet,
             'sfd_data_pubblicaz' => $this->sfd_data_pubblicaz,
             'sfd_data_inizio' => $this->sfd_data_inizio,
             'sfd_data_fine' => $this->sfd_data_fine,
@@ -102,10 +103,42 @@ class SfidaSearch extends Sfida
             ->andFilterWhere(['like', 'sfd_descrizione', $this->sfd_descrizione])
             ->andFilterWhere(['like', 'sfd_image_url', $this->sfd_image_url]);
 
-        $query->andFilterWhere(['like', 'sfida_specialita.sfs_specialita', $this->specialita]);
+        $query->andFilterWhere(['like', 'sfida_specialita.sfs_specialita', $this->specialita]);     /*nome tabella.nome campo , model property*/
 
-        $query->andFilterWhere(['like', 'tipologia_mzt.tmz_tipologia', $this->tipologia]);
+        $query->andFilterWhere(['like', 'tipologia_mzt.tmz_tipologia', $this->tipologia]);      /*nome tabella.nome campo , model property*/
 
         return $dataProvider;
+    }
+
+    public Static function getSfide($parStatoSfida, $parSpecialita, $parTipologia)
+    {
+        $sfidaModel = (new \yii\db\Query())->select('*');
+        $sfidaModel->from('sfida');
+        if ($parStatoSfida != "0") {
+            switch ($parStatoSfida) {
+                case "1":   // sfide in corso/imminenti
+                case null:   // sfide in corso/imminenti
+                    $sfidaModel->where('sfd_data_pubblicaz > NOW()');   // sfide che ancora non sono iniziate
+                    $sfidaModel->orWhere('sfd_data_inizio <= NOW()');
+                    $sfidaModel->andWhere('sfd_data_fine >= NOW()');
+//                    $sfidaModel->where('sfd_data_pubblicaz >= :dtPubb');
+//                    $sfidaModel->addParams([':dtPubb' => NOW()]);
+                    break;
+                case "2":   // sfide in corso
+                    $sfidaModel->where('sfd_data_inizio <= NOW()');
+                    $sfidaModel->andWhere('sfd_data_fine >= NOW()');
+                    break;
+                case "3":   // sfide imminenti
+                    $sfidaModel->where('sfd_data_pubblicaz > NOW()');   // sfide che ancora non sono iniziate
+                    break;
+                case "4":   // sfide terminate
+                    $sfidaModel->where('sfd_data_fine < NOW()');
+                    break;
+//                default:
+            }
+            $sfidaModel->all();
+        }
+
+        return $sfidaModel;
     }
 }

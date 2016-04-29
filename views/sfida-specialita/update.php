@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\SfidaSpecialita */
 
-$this->title = 'Update Sfida Specialita: ' . ' ' . $model->sfs_id;
-$this->params['breadcrumbs'][] = ['label' => 'Sfida Specialitas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->sfs_id, 'url' => ['view', 'id' => $model->sfs_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Modifica Specialita Sfida: ' . ' ' . $model->sfs_specialita;
+$this->params['breadcrumbs'][] = ['label' => 'Specialita Sfida', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->sfs_specialita, 'url' => ['view', 'id' => $model->sfs_id]];
+$this->params['breadcrumbs'][] = 'Modifica';
 ?>
 <div class="sfida-specialita-update">
 

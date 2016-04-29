@@ -30,7 +30,8 @@ class UbicazioneComponente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ubc_contenitore'], 'required'],
+            [['ubc_contenitore', 'ubc_utente_id'], 'required'],
+            [['ubc_utente_id'], 'integer'],
             [['ubc_ubicazione', 'ubc_note'], 'safe'],
         	[['ubc_contenitore', 'ubc_ubicazione', 'ubc_note'], 'string', 'max' => 100]
         ];
@@ -42,10 +43,11 @@ class UbicazioneComponente extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ubc_id' => 'Ubc ID',
-            'ubc_contenitore' => 'Ubc Contenitore',
-            'ubc_ubicazione' => 'Ubc Ubicazione',
-            'ubc_note' => 'Ubc Note',
+            'ubc_id' => 'Id',
+            'ubc_contenitore' => 'Contenitore',
+            'ubc_ubicazione' => 'Ubicazione',
+            'ubc_note' => 'Note',
+            'ubc_utente_id' => 'Utente Id',
         ];
     }
 
@@ -55,5 +57,13 @@ class UbicazioneComponente extends \yii\db\ActiveRecord
     public function getComponentis()
     {
         return $this->hasMany(Componenti::className(), ['cmp_id_ubc' => 'ubc_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUbcUtente()
+    {
+        return $this->hasOne(Utente::className(), ['ute_id' => 'ubc_utente_id']);
     }
 }

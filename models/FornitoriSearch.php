@@ -18,7 +18,7 @@ class FornitoriSearch extends Fornitori
     public function rules()
     {
         return [
-            [['frn_id'], 'integer'],
+            [['frn_id', 'frn_utente_id'], 'integer'],
             [['frn_nome', 'frn_sito_web'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class FornitoriSearch extends Fornitori
      */
     public function search($params)
     {
-        $query = Fornitori::find();
+        $query = Fornitori::find()->where('frn_utente_id = ' .Yii::$app->user->id);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,6 +57,7 @@ class FornitoriSearch extends Fornitori
 
         $query->andFilterWhere([
             'frn_id' => $this->frn_id,
+            'frn_utente_id' => $this->frn_utente_id,
         ]);
 
         $query->andFilterWhere(['like', 'frn_nome', $this->frn_nome])

@@ -6,20 +6,21 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\SfidaUtente */
 
-$this->title = $model->sfu_id;
-$this->params['breadcrumbs'][] = ['label' => 'Sfida Utentes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Sfida Utente | ' .$model->sfuSfida->sfd_titolo;
+$this->params['breadcrumbs'][] = ['label' => 'Sfida Utente', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->sfuSfida->sfd_titolo;
 ?>
 <div class="sfida-utente-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->sfuSfida->sfd_titolo) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->sfu_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->sfu_id], [
+        <?= Html::a('Nuova Sfida Utente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Modifica', ['update', 'id' => $model->sfu_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Elimina', ['delete', 'id' => $model->sfu_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Vuoi eliminare defitivamente questa Sfida Utente ?',
                 'method' => 'post',
             ],
         ]) ?>

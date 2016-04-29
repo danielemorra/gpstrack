@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\Utente;
 use Yii;
 use yii\base\Model;
 
@@ -14,7 +15,7 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
 
-    private $_user = false;
+    private $_utente = false;
 
 
     /**
@@ -27,8 +28,8 @@ class LoginForm extends Model
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            // password is validated by validate_password()
+            ['password', 'validate_password'],
         ];
     }
 
@@ -39,12 +40,12 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validate_password($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $user = $this->getUser();
+            $utente = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->password)) {
+            if (!$utente || !$utente->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
@@ -70,10 +71,10 @@ class LoginForm extends Model
      */
     public function getUser()
     {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+        if ($this->_utente === false) {
+            $this->_utente = Utente::findByUsername($this->username);
         }
 
-        return $this->_user;
+        return $this->_utente;
     }
 }

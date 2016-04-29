@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\SfidaUtente */
 
-$this->title = 'Create Sfida Utente';
-$this->params['breadcrumbs'][] = ['label' => 'Sfida Utentes', 'url' => ['index']];
+$this->title = 'Nuova Sfida Utente';
+$this->params['breadcrumbs'][] = ['label' => 'Sfida Utente', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sfida-utente-create">

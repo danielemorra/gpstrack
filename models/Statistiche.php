@@ -88,16 +88,19 @@ class Statistiche extends \yii\db\ActiveRecord
      */
     Public static function getKmPerComponenti($parSpecialita)
     {
-    	$query = 'SELECT mzt_mezzo_trasporto AS MEZZO, cmp_componente AS COMPONENTE, SUM( ats_distanza_km ) AS KM ';
+//    	$query = 'SELECT mzt_mezzo_trasporto AS MEZZO, cmp_componente AS COMPONENTE, SUM( ats_distanza_km ) AS KM ';
+    	$query = 'SELECT cmp_componente AS COMPONENTE, SUM( ats_distanza_km ) AS KM ';
     	$query = $query .'FROM componenti, mezzo_trasporto, tipologia_mzt, utilizzo_componente, attivita ';
     	$query = $query .'WHERE cmp_id = utc_componente_id ';
+    	$query = $query .'AND cmp_mostra_in_home = true ';
     	$query = $query .'AND mzt_id = utc_mezzo_id ';
     	$query = $query .'AND tmz_id = mzt_tipologia_id ';
     	$query = $query .'AND mzt_id = ats_mezzo_trasporto_id ';
     	$query = $query .'AND ats_data >= utc_data_montaggio ';
     	$query = $query .'AND ats_data <= utc_data_smontaggio ';
     	$query = $query ."AND tmz_tipologia = '" .$parSpecialita ."'";
-    	$query = $query .'GROUP BY mzt_mezzo_trasporto, cmp_componente ';
+//    	$query = $query .'GROUP BY mzt_mezzo_trasporto, cmp_componente ';
+		$query = $query .'GROUP BY cmp_componente ';
     	$query = $query .'ORDER BY SUM( ats_distanza_km ) DESC';
     	$command = Yii::$app->db->createCommand($query);
     	$dataReader=$command->query();

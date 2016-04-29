@@ -15,15 +15,17 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'sfd_id') ?>
+    <?php // echo $form->field($model, 'sfd_id') ?>
 
-    <?= $form->field($model, 'sfd_titolo') ?>
+    <?php // echo $form->field($model, 'sfd_sfida_obiet') ?>
 
-    <?= $form->field($model, 'sfd_sotto_titolo') ?>
+    <?php // echo $form->field($model, 'sfd_titolo') ?>
 
-    <?= $form->field($model, 'sfd_descrizione') ?>
+    <?php // echo $form->field($model, 'sfd_sotto_titolo') ?>
 
-    <?= $form->field($model, 'sfd_data_pubblicaz') ?>
+    <?php // echo $form->field($model, 'sfd_descrizione') ?>
+
+    <?php // echo $form->field($model, 'sfd_data_pubblicaz') ?>
 
     <?php // echo $form->field($model, 'sfd_data_inizio') ?>
 

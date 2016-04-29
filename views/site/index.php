@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = 'GpsTrack 1.3';
 ?>
 <div class="site-index">
 

@@ -25,6 +25,18 @@ class AttivitaController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+//            'access' => [
+//                'class' => \yii\filters\AccessControl::className(),
+//                'only' => ['create','update','delete'],
+//                'rules' => [
+//                    // allow authenticated users
+//                    [
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                    // everything else is denied
+//                ],
+//            ],
         ];
     }
 
@@ -63,8 +75,7 @@ class AttivitaController extends Controller
     public function actionCreate()
     {
         $model = new Attivita();
-        /* TODO: implementare gestione utenti e sostituire con utente attivo*/
-        $model->setAttribute('ats_utente_id', Yii::$app->params['idUtenteDm9']);
+        $model->setAttribute('ats_utente_id', Yii::$app->user->id);
         /*dm9-160227*inizio************************/
         $dataOdiernaSQL = date('Y-m-d');
         $modelMezzoTrasporto=ArrayHelper::map(MezzoTrasporto::find()

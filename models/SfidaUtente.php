@@ -45,10 +45,10 @@ class SfidaUtente extends \yii\db\ActiveRecord
     {
         return [
             'sfu_id' => 'Sfu ID',
-            'sfu_obiettivo_raggiunto' => 'Sfu Obiettivo Raggiunto',
-            'sfu_utente_id' => 'Sfu Utente ID',
-            'sfu_sfida_id' => 'Sfu Sfida ID',
-            'sfu_flag_obiettivo_centrato' => 'Sfu Flag Obiettivo Centrato',
+            'sfu_obiettivo_raggiunto' => 'Obiettivo Raggiunto',
+            'sfu_utente_id' => 'Utente',
+            'sfu_sfida_id' => 'Sfida',
+            'sfu_flag_obiettivo_centrato' => 'Obiettivo Centrato',
         ];
     }
 

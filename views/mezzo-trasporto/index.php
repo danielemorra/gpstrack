@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MezzoTrasportoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mezzo Trasportos';
+$this->title = 'Attrezzatura';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mezzo-trasporto-index">
@@ -16,8 +16,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Mezzo Trasporto', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php if(!Yii::$app->user->isGuest ){ ?>
+            <?= Html::a('Nuova Attrezzatura', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
+
+    <?php
+    //  Abilita le immagini dei link all'aupdate/delete solo per gli utenti loggati
+    // for Guests
+    if(Yii::$app->user->isGuest)
+    {
+        $actionColumn =  [   'class' => 'yii\grid\ActionColumn',
+            'template' => '{view}',
+            'contentOptions' => ['style' => 'width:34px; font-size:18px;'],
+            'visible' => true,
+        ];
+    }
+    // for  users
+    else
+    {
+        $actionColumn =   [   'class' => 'yii\grid\ActionColumn',
+            'template' => '{view} {update} {delete}',
+            'contentOptions' => ['style' => 'width:34px; font-size:18px;'],
+            'visible' => true,
+        ];
+    }
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -38,7 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
             /*dm9* fine*/
             // 'mzt_utente_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
+            $actionColumn
         ],
     ]); ?>
 

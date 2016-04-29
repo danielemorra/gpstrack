@@ -6,20 +6,21 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\SfidaSpecialita */
 
-$this->title = $model->sfs_id;
-$this->params['breadcrumbs'][] = ['label' => 'Sfida Specialitas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Specialita Sfida | ' .$model->sfs_specialita;
+$this->params['breadcrumbs'][] = ['label' => 'Specialita Sfida', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->sfs_specialita;
 ?>
 <div class="sfida-specialita-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->sfs_specialita) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->sfs_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->sfs_id], [
+        <?= Html::a('Nuova Specialita', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Modifica', ['update', 'id' => $model->sfs_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Elimina', ['delete', 'id' => $model->sfs_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Vuoi eliminare defitivamente questa Specialita Sfida ?',
                 'method' => 'post',
             ],
         ]) ?>

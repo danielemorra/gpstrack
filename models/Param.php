@@ -46,12 +46,12 @@ class Param extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'par_id' => 'Par ID',
-            'par_parametro' => 'Par Parametro',
-            'par_leggi_campo' => 'Par Leggi Campo',
-            'par_campo_num' => 'Par Campo Num',
-            'par_campo_str' => 'Par Campo Str',
-            'par_campo_date' => 'Par Campo Date',
+            'par_id' => 'Id',
+            'par_parametro' => 'Chiave Parametro',
+            'par_leggi_campo' => 'Campo da leggere',
+            'par_campo_num' => 'Campo Numerico',
+            'par_campo_str' => 'Campo Stringa',
+            'par_campo_date' => 'Campo Data',
         ];
     }
 }

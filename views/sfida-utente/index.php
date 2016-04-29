@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SfidaUtenteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sfida Utentes';
+$this->title = 'Sfide / Obiettivi Utente';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sfida-utente-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Sfida Utente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nuova Sfida Utente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

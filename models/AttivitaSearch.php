@@ -12,7 +12,7 @@ use app\models\Attivita;
  */
 class AttivitaSearch extends Attivita
 {
-	public $atsMezzoTrasporto; /*dm9*/
+	public $atsMezzoTrasporto;      /*model property*/
 	
 	/**
      * @inheritdoc
@@ -20,8 +20,23 @@ class AttivitaSearch extends Attivita
     public function rules()
     {
         return [
-            [['ats_id', 'ats_mezzo_trasporto_id', 'ats_dislivello', 'ats_utente_id'], 'integer'],
-            [['ats_data', 'ats_tempo', 'ats_percorso', 'atsMezzoTrasporto'], 'safe'],
+            [
+                [
+                    'ats_id',
+                    'ats_mezzo_trasporto_id',
+                    'ats_dislivello',
+                    'ats_utente_id'
+                ],
+                'integer'],
+            [
+                [
+                    'ats_data',
+                    'ats_tempo',
+                    'ats_percorso',
+                    'atsMezzoTrasporto'     /*model property*/
+                ]
+                ,
+                'safe'],
             [['ats_distanza_km'], 'number'],
         ];
     }
@@ -44,69 +59,33 @@ class AttivitaSearch extends Attivita
      */
     public function search($params)
     {
-        $query = Attivita::find();
+        $query = Attivita::find()->where('ats_utente_id = ' .Yii::$app->user->id);
 
-        $query->joinWith(['atsMezzoTrasporto']);	/*dm9*/
-        $query->orderBy(['ats_data' => SORT_DESC]);		/*dm9-160220*/
+        $query->joinWith(['atsMezzoTrasporto']);	    /*nome relazione*/
+//        $query->orderBy(['ats_data' => SORT_DESC]);	se attivata' non funziona il sort da web cliccando su qualsiasi colonna
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
         /*dm9*inizio*/
-        $dataProvider->sort->attributes['atsMezzoTrasporto'] = [
-        		'asc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_ASC],
+        $dataProvider->sort->attributes['atsMezzoTrasporto'] = [                    /*model property*/
+        		'asc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_ASC],       /*nome tabella.nome campo*/
         		'desc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_DESC],
         ];
         /*dm9*fine*/
-        /*dm9-160220*inizio*****************/
-//         $dataProvider->setSort([
-//         		'attributes' => [
-//         				'ats_id',
-//         				'atsMezzoTrasporto' => [
-//         						'asc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_ASC],
-//         						'desc' => ['mezzo_trasporto.mzt_mezzo_trasporto' => SORT_DESC],
-//         						'label' => 'Attrezzatura'
-//         				]
-//         		]
-//         ]);
-        /*dm9-160220*fine*****************/
-        
-        
-        /*dm9-160220*inizio*****************/
-//         $this->load($params);
 
-        //         if (!$this->validate()) {
-//             // uncomment the following line if you do not want to any records when validation fails
-//             // $query->where('0=1');
-//             return $dataProvider;
-//         }
-        /*dm9-160220*fine*****************/
-        
         if (!($this->load($params) && $this->validate())) {
         	/**
         	 * The following line will allow eager loading with country data
         	 * to enable sorting by country on initial loading of the grid.
         	 */
-//         	$query->joinWith(['atsMezzoTrasporto']);		/*dm9-160220*/
         	return $dataProvider;
         }
         	
-//         $this->addCondition($query, 'ats_id');
-//         $this->addCondition($query, 'mzt_id');
-        	
-        /* Add your filtering criteria */
-        	
-        // filter by country name
-//         $query->joinWith(['atsMezzoTrasporto' => function ($q) {
-//         	$q->where('mezzo_trasporto.mzt_mezzo_trasporto LIKE "%' . $this->atsMezzoTrasporto . '%"');
-//         }]);
-        	
-        
         $query->andFilterWhere([
             'ats_id' => $this->ats_id,
             'ats_data' => $this->ats_data,
-//*dm9*     'ats_mezzo_trasporto_id' => $this->ats_mezzo_trasporto_id,
             'ats_tempo' => $this->ats_tempo,
             'ats_distanza_km' => $this->ats_distanza_km,
             'ats_dislivello' => $this->ats_dislivello,
@@ -115,7 +94,7 @@ class AttivitaSearch extends Attivita
 
         $query->andFilterWhere(['like', 'ats_percorso', $this->ats_percorso]);
 
-        $query->andFilterWhere(['like', 'mezzo_trasporto.mzt_mezzo_trasporto', $this->atsMezzoTrasporto]);		/*dm9*/
+        $query->andFilterWhere(['like', 'mezzo_trasporto.mzt_mezzo_trasporto', $this->atsMezzoTrasporto]);		/*nome tabella.nome campo , model property*/
         
         return $dataProvider;
     }

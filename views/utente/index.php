@@ -27,7 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'ute_id',
             'ute_username',
-            'ute_password',
+            'ute_password_hash',
+            'ute_auth_key',
+            'ute_access_token',
             'ute_email:email',
 
             ['class' => 'yii\grid\ActionColumn'],

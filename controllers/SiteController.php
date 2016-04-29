@@ -220,23 +220,23 @@ class SiteController extends Controller
     {
     	// Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la BDC
     	$array['kmBdcAnnui'] = Statistiche::getKmAnnui($anno,
-    			Yii::$app->params['idUtenteDm9'],
+    			Yii::$app->user->id,
     			'BDC');
     	$array['salBdcAnnui'] = Statistiche::getDislivelloAnnuo($anno,
-    			Yii::$app->params['idUtenteDm9'],
+    			Yii::$app->user->id,
     			'BDC');
     	// Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la MTB
     	$array['kmMtbAnnui'] = Statistiche::getKmAnnui($anno,
-    			Yii::$app->params['idUtenteDm9'],
+    			Yii::$app->user->id,
     			'MTB');
     	$array['salMtbAnnui'] = Statistiche::getDislivelloAnnuo($anno,
-    			Yii::$app->params['idUtenteDm9'], 'MTB');
+    			Yii::$app->user->id, 'MTB');
     	// Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la Corsa
     	$array['kmRunAnnui'] = Statistiche::getKmAnnui($anno,
-    			Yii::$app->params['idUtenteDm9'],
+    			Yii::$app->user->id,
     			'CORSA');
     	$array['salRunAnnui'] = Statistiche::getDislivelloAnnuo($anno,
-    			Yii::$app->params['idUtenteDm9'],
+    			Yii::$app->user->id,
     			'CORSA');
     	return $array;
     }
@@ -245,23 +245,23 @@ class SiteController extends Controller
     {
         // Estrae tot. km, dislivello per l'utente loggato nell'anno/mese in corso per la BDC
         $array['kmBdcMese'] = Statistiche::getKmMese($anno, $mese,
-                                    Yii::$app->params['idUtenteDm9'],
+                                    Yii::$app->user->id,
                                     'BDC');
         $array['salBdcMese'] = Statistiche::getDislivelloMese($anno, $mese,
-                                    Yii::$app->params['idUtenteDm9'],
+                                    Yii::$app->user->id,
                                     'BDC');
         // Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la MTB
         $array['kmMtbMese'] = Statistiche::getKmMese($anno, $mese,
-                                    Yii::$app->params['idUtenteDm9'],
+                                    Yii::$app->user->id,
                                     'MTB');
         $array['salMtbMese'] = Statistiche::getDislivelloMese($anno, $mese,
-                                    Yii::$app->params['idUtenteDm9'], 'MTB');
+                                    Yii::$app->user->id, 'MTB');
         // Estrae tot. km, dislivello per l'utente loggato nell'anno in corso per la Corsa
         $array['kmRunMese'] = Statistiche::getKmMese($anno, $mese,
-                                    Yii::$app->params['idUtenteDm9'],
+                                    Yii::$app->user->id,
                                     'CORSA');
         $array['salRunMese'] = Statistiche::getDislivelloMese($anno, $mese,
-                                    Yii::$app->params['idUtenteDm9'],
+                                    Yii::$app->user->id,
                                     'CORSA');
         return $array;
     }

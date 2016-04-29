@@ -21,11 +21,14 @@ use Yii;
  * @property string $cmp_id_frn
  * @property string $cmp_id_cat
  * @property string $cmp_id_ubc
+ * @property string $cmp_utente_id
  * @property string $cmp_note
  *
+ * @property Utente $cmpUtente
  * @property Fornitori $cmpIdFrn
  * @property UbicazioneComponente $cmpIdUbc
  * @property Categoria $cmpIdCat
+ * @property Manutenzione[] $manutenziones
  * @property UtilizzoComponente[] $utilizzoComponentes
  */
 class Componenti extends \yii\db\ActiveRecord
@@ -45,9 +48,9 @@ class Componenti extends \yii\db\ActiveRecord
     {
         return [
             [['cmp_componente', 'cmp_qta_acq', 'cmp_id_frn', 'cmp_id_cat', 'cmp_id_ubc'], 'required'],
-            [['cmp_qta_acq', 'cmp_qta_util', 'cmp_mystuff2', 'cmp_id_frn', 'cmp_id_cat', 'cmp_id_ubc'], 'integer'],
+            [['cmp_qta_acq', 'cmp_qta_util', 'cmp_mystuff2', 'cmp_id_frn', 'cmp_id_cat', 'cmp_id_ubc', 'cmp_utente_id'], 'integer'],
             [['cmp_prz_acq_unit'], 'number'],
-            [['cmp_data_acquisto', 'cmp_data_dismissione', 'cmp_note'], 'safe'],
+            [['cmp_data_acquisto', 'cmp_data_dismissione', 'cmp_note', 'cmp_mostra_in_home'], 'safe'],
             [['cmp_marca', 'cmp_modello'], 'string', 'max' => 50],
             [['cmp_componente', 'cmp_note'], 'string', 'max' => 100]
         ];
@@ -68,13 +71,30 @@ class Componenti extends \yii\db\ActiveRecord
        		'cmp_data_acquisto' => 'Data Acq',
        		'cmp_data_dismissione' => 'Data Dism',
             'cmp_qta_util' => 'Qta Util',
+            'cmp_mostra_in_home' => 'Mostra in Home',
         	'cmp_mystuff2' => 'Mystuff2',
        		'cmp_id_frn' => 'Negozio',
        		'cmp_id_cat' => 'Categoria',
         	'cmp_id_ubc' => 'Ubicazione',
+            'cmp_utente_id' => 'Utente Id',
         	'cmp_note' => 'Note',
-        		
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCmpUtente()
+    {
+        return $this->hasOne(Utente::className(), ['ute_id' => 'cmp_utente_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getManutenziones()
+    {
+        return $this->hasMany(Manutenzione::className(), ['mtz_componente_id' => 'cmp_id']);
     }
 
     /**

@@ -7,19 +7,21 @@ use yii\widgets\DetailView;
 /* @var $model app\models\TipologiaMzt */
 
 $this->title = $model->tmz_id;
-$this->params['breadcrumbs'][] = ['label' => 'Tipologia Mzts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Tipologia Attrezzatura | ' .$model->tmz_tipologia;
+$this->params['breadcrumbs'][] = ['label' => 'Tipologia Attrezzatura', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->tmz_tipologia;
 ?>
 <div class="tipologia-mzt-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->tmz_tipologia) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->tmz_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->tmz_id], [
+        <?= Html::a('Nuova Tipologia', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Modifica', ['update', 'id' => $model->tmz_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Elimina', ['delete', 'id' => $model->tmz_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Vuoi eliminare defitivamente questa Tipologia Attrezzatura ?',
                 'method' => 'post',
             ],
         ]) ?>

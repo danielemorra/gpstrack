@@ -32,8 +32,20 @@ class Manutenzione extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mtz_data_interv', 'mtz_descrizione', 'mtz_componente_id', 'mtz_data_inizio_tracking', 'mtz_data_fine_tracking'], 'required'],
-            [['mtz_data_interv', 'mtz_data_inizio_tracking', 'mtz_data_fine_tracking'], 'safe'],
+            [
+                [
+                    'mtz_data_interv',
+                    'mtz_descrizione',
+                    'mtz_componente_id',
+                    'mtz_data_inizio_tracking',
+                    'mtz_data_fine_tracking'
+                ], 'required'],
+            [
+                [
+                    'mtz_data_interv',
+                    'mtz_data_inizio_tracking',
+                    'mtz_data_fine_tracking'
+                ], 'safe'],
             [['mtz_componente_id'], 'integer'],
             [['mtz_descrizione'], 'string', 'max' => 100]
         ];
@@ -45,12 +57,12 @@ class Manutenzione extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'mtz_id' => 'Mtz ID',
-            'mtz_data_interv' => 'Mtz Data Interv',
-            'mtz_descrizione' => 'Mtz Descrizione',
-            'mtz_componente_id' => 'Mtz Componente ID',
-            'mtz_data_inizio_tracking' => 'Mtz Data Inizio Tracking',
-            'mtz_data_fine_tracking' => 'Mtz Data Fine Tracking',
+            'mtz_id' => 'Id',
+            'mtz_data_interv' => 'Data',
+            'mtz_descrizione' => 'Descrizione',
+            'mtz_componente_id' => 'Componente',
+            'mtz_data_inizio_tracking' => 'Dt Inizio Tracking',
+            'mtz_data_fine_tracking' => 'Dt Fine Tracking',
         ];
     }
 
