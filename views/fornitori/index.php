@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\FornitoriSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Fornitori';
+$this->title = 'Venditori';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fornitori-index">
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'frn_id',
+//            'frn_id',
             'frn_nome',
             'frn_sito_web',
 //            'frn_utente_id',

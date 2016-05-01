@@ -38,6 +38,10 @@ class ContactForm extends Model
     {
         return [
             'verifyCode' => 'Verification Code',
+            'neme' => 'Nominativo',
+            'email' => 'Email',
+            'subject' => 'Oggetto',
+            'body' => 'Descrizione richiesta',
         ];
     }
 

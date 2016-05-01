@@ -34,6 +34,18 @@ class SiteController extends Controller
                     ],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index'],
+                'rules' => [
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    // everything else is denied
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -154,7 +166,11 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+//        return $this->goHome();
+        $model = new LoginForm();
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     public function actionContact()

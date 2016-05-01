@@ -56,6 +56,8 @@ AppAsset::register($this);
                                 ['label' => 'Manutenzione', 'url' => Yii::$app->homeUrl.'?r=manutenzione'],
                 				['label' => 'Utilizzo', 'url' => Yii::$app->homeUrl.'?r=utilizzo-componente'],
                 				['label' => 'Ubicazione', 'url' => Yii::$app->homeUrl.'?r=ubicazione-componente'],
+                                '<li class="divider"></li>',
+                                ['label' => 'Venditori', 'url' => Yii::$app->homeUrl.'?r=fornitori'],
                 		],
                         'visible' => !Yii::$app->user->isGuest,
                		],
@@ -66,21 +68,21 @@ AppAsset::register($this);
                                 ['label' => 'Specialita sfide', 'url' => Yii::$app->homeUrl.'?r=sfida-specialita'],
                                 '<li class="divider"></li>',
                                 ['label' => 'Tipologie Attrezzatura', 'url' => Yii::$app->homeUrl.'?r=tipologia-mzt'],
-                                '<li class="divider"></li>',
-                				['label' => 'Negozi', 'url' => Yii::$app->homeUrl.'?r=fornitori'],
                 				'<li class="divider"></li>',
                 				// '<li class="dropdown-header">Dropdown Header</li>',
                 				['label' => 'Categorie Componenti', 'url' => Yii::$app->homeUrl.'?r=categoria'],
                                 '<li class="divider"></li>',
                                 ['label' => 'Parametri', 'url' => Yii::$app->homeUrl.'?r=param'],
+                                '<li class="divider"></li>',
+                                ['label' => 'Utenti', 'url' => Yii::$app->homeUrl.'?r=utente'],
                 		],
-                        'visible' => !Yii::$app->user->isGuest,
+                        'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->ute_username = 'dm9',
                 	],
                 		
                		/*dm9*
                 	['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']], */
+                    ['label' => 'About', 'url' => ['/site/about']], */
+                    ['label' => 'Contatti', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
                         ['label' => 'Logout (' . Yii::$app->user->identity->ute_username . ')',
