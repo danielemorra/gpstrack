@@ -65,6 +65,7 @@ class ComponentiController extends Controller
     public function actionCreate()
     {
         $model = new Componenti();
+        $model->cmp_utente_id = yii::$app->user->id;
 
         /*dm9-160227*inizio******************/
         $modelFornitori=ArrayHelper::map(Fornitori::find()

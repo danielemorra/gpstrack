@@ -85,7 +85,7 @@ AppAsset::register($this);
                     ['label' => 'Contatti', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
                         ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->ute_username . ')',
+                        ['label' => 'Logout',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],

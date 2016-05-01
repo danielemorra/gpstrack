@@ -10,6 +10,7 @@ use Yii;
  * @property string $frn_id
  * @property string $frn_nome
  * @property string $frn_sito_web
+ * @property string $frn_utente_id
  *
  * @property Componenti[] $componentis
  */

@@ -10,6 +10,7 @@ use Yii;
  * @property string $ubc_id
  * @property string $ubc_contenitore
  * @property string $ubc_ubicazione
+ * @property string $ubc_utente_id
  * @property string $ubc_note
  *
  * @property Componenti[] $componentis

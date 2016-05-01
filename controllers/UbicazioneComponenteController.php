@@ -61,6 +61,7 @@ class UbicazioneComponenteController extends Controller
     public function actionCreate()
     {
         $model = new UbicazioneComponente();
+        $model->ubc_utente_id = yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ubc_id]);

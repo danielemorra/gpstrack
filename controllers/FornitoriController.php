@@ -61,6 +61,7 @@ class FornitoriController extends Controller
     public function actionCreate()
     {
         $model = new Fornitori();
+        $model->frn_utente_id = yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->frn_id]);
