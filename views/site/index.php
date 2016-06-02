@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
-$this->title = 'GpsTrack 1.4.1';
+$this->title = 'GpsTrack 1.4.5 del 25/05/2016';
 ?>
 <div class="site-index">
 
@@ -154,7 +154,7 @@ $this->title = 'GpsTrack 1.4.1';
 					</thead>
 					<tbody>
 					<tr>
-						<td><em><?= $array['kmBdcAnnui']; ?></em></td>
+						<td><em><?= number_format($array['kmBdcAnnui'],2,',','.'); ?></em></td>
 						<td><em><?= $array['totWeekRemain']; ?></em></td>
 						<td><em><?= number_format($array['totKmWeekToDo'],2,',','.'); ?></em></td>
 					</tr>

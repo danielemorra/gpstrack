@@ -24,9 +24,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cmp_prz_acq_unit')->textInput(['maxlength' => 10]) ?>
 
-    <?= $form->field($model, 'cmp_data_acquisto')->textInput() ?>
+    <?= $form->field($model, 'cmp_data_acquisto')->textInput(['value' => date( 'd/m/Y', strtotime( $model->cmp_data_acquisto ))]) ?>
 
-    <?= $form->field($model, 'cmp_data_dismissione')->textInput() ?>
+    <?= $form->field($model, 'cmp_data_dismissione')->textInput(['value' => date_format(  date_create($model->cmp_data_dismissione ) , 'd/m/Y') ]) ?>
 
     <?= $form->field($model, 'cmp_qta_util')->textInput() ?>
 

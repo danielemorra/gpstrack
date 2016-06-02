@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 
 ($model->sfd_sfida_obiet == 1) ? $tipoSfdObt = 'Sfida' : $tipoSfdObt = 'Obiettivo';
 $this->title = $tipoSfdObt .' | ' .$model->sfd_titolo;
-$this->params['breadcrumbs'][] = ['label' => $tipoSfdObt, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Sfide e Obiettivi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->sfd_titolo;
 ?>
 <div class="sfida-view">
@@ -43,9 +43,26 @@ $this->params['breadcrumbs'][] = $model->sfd_titolo;
             'sfd_titolo',
             'sfd_sotto_titolo',
             'sfd_descrizione',
-            'sfd_data_pubblicaz:date',
-            'sfd_data_inizio:date',
-            'sfd_data_fine:date',
+//            'sfd_data_pubblicaz:date',
+            [
+                'attribute'=>'sfd_data_pubblicaz',
+                'value' => $model->sfd_data_pubblicaz,
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'sfd_data_inizio:date',
+            [
+                'attribute'=>'sfd_data_inizio',
+                'value' => $model->sfd_data_inizio,
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'sfd_data_fine:date',
+            [
+                'attribute'=>'sfd_data_fine',
+                'value' => $model->getDataFine(),
+                'format'=> 'Text'
+//                'value' => $model->sfd_data_fine,
+//                'format'=>['Date','php: d/m/Y']
+            ],
             [
                 'label' => 'Specialita',
                 'value' => $model->sfdSpecialita->sfs_specialita .' ('. $model->sfdSpecialita->sfs_um .')',

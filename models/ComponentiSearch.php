@@ -26,7 +26,6 @@ class ComponentiSearch extends Componenti
                 [
                     'cmp_id',
                     'cmp_qta_acq',
-                    'cmp_mystuff2',
                     'cmp_id_frn',       /*model property*/
                     'cmp_id_cat',       /*model property*/
                     'cmp_id_ubc',        /*model property*/
@@ -40,6 +39,7 @@ class ComponentiSearch extends Componenti
                     'cmp_componente', 
                     'cmp_data_acquisto', 
                     'cmp_data_dismissione',
+                    'cmp_mystuff2',
                     'cmp_mostra_in_home',
                     'cmp_note', 
                     'cmpIdFrn',         /*model property*/
@@ -48,6 +48,7 @@ class ComponentiSearch extends Componenti
                 ], 
                 'safe'],
             [['cmp_prz_acq_unit'], 'number'],
+            [['cmp_mystuff2','cmp_mostra_in_home'], 'in', 'range' => ['S', 's', 'N', 'n'], 'message' => 'Digita S o N'],
         ];
     }
 
@@ -77,6 +78,7 @@ class ComponentiSearch extends Componenti
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['cmp_componente'=>SORT_ASC]]
         ]);
 
         /*dm9*inizio*/
@@ -109,13 +111,23 @@ class ComponentiSearch extends Componenti
         	'cmp_prz_acq_unit' => $this->cmp_prz_acq_unit,
             'cmp_data_acquisto' => $this->cmp_data_acquisto,
             'cmp_data_dismissione' => $this->cmp_data_dismissione,
-            'cmp_mystuff2' => $this->cmp_mystuff2,
-            'cmp_mostra_in_home' => $this->cmp_mostra_in_home,
+//            'cmp_mystuff2' => strtoupper($this->cmp_mystuff2) == 'NO' ? 0 : 1,
+//            'cmp_mostra_in_home' => strtoupper($this->cmp_mostra_in_home) == 'NO' ? 0 : 1,
             'cmp_id_frn' => $this->cmp_id_frn,
             'cmp_id_cat' => $this->cmp_id_cat,
             'cmp_id_ubc' => $this->cmp_id_ubc,
             'cmp_utente_id' => $this->cmp_utente_id,
         ]);
+
+        if (!empty($this->cmp_mystuff2))
+            $query->andFilterWhere([
+                'cmp_mystuff2' => strtoupper($this->cmp_mystuff2) == 'NO' ? 0 : 1,
+            ]);
+
+        if (!empty($this->cmp_mostra_in_home))
+            $query->andFilterWhere([
+                'cmp_mostra_in_home' => strtoupper($this->cmp_mostra_in_home) == 'NO' ? 0 : 1,
+            ]);
 
         $query->andFilterWhere(['like', 'cmp_marca', $this->cmp_marca])
             ->andFilterWhere(['like', 'cmp_modello', $this->cmp_modello])

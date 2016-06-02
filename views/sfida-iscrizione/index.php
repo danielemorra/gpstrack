@@ -10,7 +10,7 @@ $this->title = 'GpsTrack 1.3';
     <div class="body-content">
 
         <h1>Sfide</h1>
-        <cite>Iscriviti a una o piu' sfide e mettiti a confronto con te stesso e gli altri</cite>
+        <cite>Iscriviti a una o piu' sfide e mettiti a confronto con te stesso</cite>
         <?php $form = ActiveForm::begin([
             'id' => 'statistiche-form',
             'options' => ['class' => 'form-inline'],
@@ -21,7 +21,7 @@ $this->title = 'GpsTrack 1.3';
             ],
         ]); ?>
 
-        <div style="background-color: #9d9d9d; padding: 8px; margin-top: 8px; margin-bottom: 8px;">
+        <div style="/*background-color: #9d9d9d;*/ padding: 8px; margin-top: 8px; margin-bottom: 8px;">
                 <?php //$sfidaIscrizModel->statoSfida = !isset($sfidaIscrizModel->statoSfida) ? "1" : $sfidaIscrizModel->statoSfida; ?>
                 <?= $form->field($sfidaIscrizModel, 'statoSfida')->dropDownList(
                     ['0' => 'Tutte le sfide', '1' => 'Solo sfide in corso/imminenti', '2' => 'Solo sfide in corso', '3' => 'Solo sfide imminenti', '4' => 'Solo sfide terminate'],

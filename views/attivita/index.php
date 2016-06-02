@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AttivitaSearch */
@@ -41,6 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'visible' => true,
                 ];
     }
+
+//    $daterange = [
+//        'model' => $searchModel,
+//        'attribute' => 'ats_data',
+//        'convertFormat' => false,
+//        'pluginOptions' => [
+//            'format' => 'DD/MM/YYYY',
+//        ],
+//    ];
     ?>
 
     <?= GridView::widget([
@@ -49,13 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
            ['class' => 'yii\grid\SerialColumn'],
         
-            'ats_id',
-// 			'ats_data',
+//            'ats_id',
             /*dm9* inizio*/
     		[
 	        	'attribute'=>'ats_data',
             	'value' => 'ats_data',
 	        	'format'=>['Date','php: d/m/Y']
+//                'filter' => DateRangePicker::widget($daterange),
 	        ],
             /*dm9* fine*/
             /*dm9* inizio*/

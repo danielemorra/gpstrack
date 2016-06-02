@@ -41,8 +41,20 @@ $this->params['breadcrumbs'][] = $model->cmp_componente;
             ],
             'cmp_qta_acq',
             'cmp_prz_acq_unit',
-            'cmp_data_acquisto',
-            'cmp_data_dismissione',
+//            'cmp_data_acquisto',
+            [
+                'attribute'=>'cmp_data_acquisto',
+                'value' => $model->cmp_data_acquisto,
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'cmp_data_dismissione',
+            [
+                'attribute'=>'cmp_data_dismissione',
+                'value' => $model->getDataDismissione(),
+                'format'=> 'Text'
+//              'value' => $model->cmp_data_dismissione,
+//              'format'=> ['Date', 'php: d/m/Y']
+            ],
             'cmp_qta_util',
             'cmp_mystuff2',
             [

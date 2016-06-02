@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "sfida".
  *
  * @property string $sfd_id
- * @property integer $sfd_sfida_obiet
+ * @property string $sfd_sfida_obiet
  * @property string $sfd_titolo
  * @property string $sfd_sotto_titolo
  * @property string $sfd_descrizione
@@ -77,13 +77,13 @@ class Sfida extends \yii\db\ActiveRecord
         return [
             [['sfd_sfida_obiet', 'sfd_sotto_titolo', 'sfd_specialita_id', 'sfd_tipologia_id', 'sfd_obiettivo'], 'required', 'on' => self::SCENARIO_OBIETTIVO],
             [['sfd_sfida_obiet', 'sfd_sotto_titolo', 'sfd_specialita_id', 'sfd_tipologia_id'], 'required', 'on' => self::SCENARIO_SFIDA],
-            [['sfd_data_pubblicaz', 'sfd_data_inizio', 'sfd_data_fine'], 'safe'],
-            [['sfd_sfida_obiet', 'sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
-            [['sfd_obiettivo'], 'number'],
+            [['sfd_sfida_obiet', 'sfd_data_pubblicaz', 'sfd_data_inizio', 'sfd_data_fine'], 'safe'],
+            [['sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
             [['sfd_titolo'], 'string', 'max' => 50],
             [['sfd_sotto_titolo'], 'string', 'max' => 100],
             [['sfd_descrizione'], 'string', 'max' => 500],
-            [['sfd_image_url'], 'string', 'max' => 255]
+            [['sfd_image_url'], 'string', 'max' => 255],
+//            [['sfd_data_fine'],'default','value'=>9999-12-31],
         ];
     }
 
@@ -93,17 +93,17 @@ class Sfida extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'sfd_id' => 'ID',
-            'sfd_sfida_obiet' => 'Sfd Sfida Obiet',
-            'sfd_titolo' => 'Titolo',
-            'sfd_sotto_titolo' => 'Sotto Titolo',
+            'sfd_id' => 'Id',
+            'sfd_sfida_obiet' => 'Sfd/Ob.',
+            'sfd_titolo' => 'Titolo Sfida',
+            'sfd_sotto_titolo' => 'Sotto Titolo Sfida',
             'sfd_descrizione' => 'Descrizione',
-            'sfd_data_pubblicaz' => 'Data Pubbli.',
-            'sfd_data_inizio' => 'Data Inizio',
-            'sfd_data_fine' => 'Data Fine',
+            'sfd_data_pubblicaz' => 'Dt Pubb.',
+            'sfd_data_inizio' => 'Dt Inizio',
+            'sfd_data_fine' => 'Dt Fine',
             'sfd_specialita_id' => 'Specialita',
-            'sfd_tipologia_id' => 'Tipologia',
-            'sfd_obiettivo' => 'Obiettivo',
+            'sfd_tipologia_id' => 'Tipo',
+            'sfd_obiettivo' => 'Obt',
             'sfd_image_url' => 'Image Url',
         ];
     }
@@ -130,5 +130,36 @@ class Sfida extends \yii\db\ActiveRecord
     public function getSfidaUtentes()
     {
         return $this->hasMany(SfidaUtente::className(), ['sfu_sfida_id' => 'sfd_id']);
+    }
+
+    public function beforeSave($insert = true) {
+        $date = $this->sfd_data_pubblicaz;
+        $date = str_replace('/', '-', $date);
+        $this->sfd_data_pubblicaz = date('Y-m-d', strtotime($date));
+
+        $date = $this->sfd_data_inizio;
+        $date = str_replace('/', '-', $date);
+        $this->sfd_data_inizio = date('Y-m-d', strtotime($date));
+
+        $date = $this->sfd_data_fine;
+        $date = str_replace('/', '-', $date);
+//        $this->sfd_data_fine = date('Y-m-d', strtotime($date));
+        $date = $date .'T23:59:59.999-06:00';
+        $this->sfd_data_fine = date_format(  date_create($date ) , 'Y-m-d H:i:s');
+
+        return parent::beforeSave($insert);
+    }
+
+    /**
+     * Restituisce la data dismissione in formato text per bypassare il nnn
+     * riconoscimento della data valida a 31/12/9999
+     */
+    public function getDataFine(){
+        if($this->sfd_data_fine == '9999-12-31') {
+            return '31/12/9999';
+        }
+        else {
+            return date( 'd/m/Y', strtotime($this->sfd_data_fine));
+        }
     }
 }

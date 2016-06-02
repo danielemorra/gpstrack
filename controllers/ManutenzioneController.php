@@ -76,6 +76,11 @@ class ManutenzioneController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->mtz_id]);
         } else {
+            $model->mtz_data_interv = date('Y-m-d');
+            $model->mtz_data_inizio_tracking = date('Y-m-d');
+//            $model->mtz_data_fine_tracking = date('Y-m-d H:i:s', strtotime('9999-12-31 23:59:59'));
+            $date = '9999-12-31T23:59:59.999-06:00';
+            $model->mtz_data_fine_tracking = date_format(  date_create($date) , 'Y-m-d');
             return $this->render('create', [
                 'model' => $model,
         		'modelComponenti' => $modelComponenti,		/*dm9-160227*/
@@ -121,6 +126,46 @@ class ManutenzioneController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing Manutenzione model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function action1click($id)
+    {
+        $manutDaChiudere = $this->findModel($id);
+
+        $transaction = Manutenzione::getDb()->beginTransaction();
+        try {
+            // Chiude la manutenzione cliccata impostando la data fine track alla data del giorno - 1
+            $date = date('Y-m-d');
+//            $newdate = strtotime ( '-1 day’' , strtotime ( $date ) ) ;
+//            $newdate = date ( 'Y-m-d' , $newdate );
+//            $manutDaChiudere->mtz_data_fine_tracking = $newdate;
+//            $date->sub(new DateInterval('P1D'));
+//            $manutDaChiudere->mtz_data_fine_tracking = $date->format('Y-m-d');
+            $manutDaChiudere->mtz_data_fine_tracking = date("Y-m-d",strtotime("-1 day"));
+            $manutDaChiudere->save(false);
+
+            // apre una manutenzione dello stesso tipo cliccata impostando la data fine track alla data del giorno
+            $manutDaAprire = new Manutenzione();
+            $manutDaAprire->mtz_data_interv = date('Y-m-d');
+            $manutDaAprire->mtz_descrizione = $manutDaChiudere->mtz_descrizione;
+            $manutDaAprire->mtz_componente_id = $manutDaChiudere->mtz_componente_id;
+            $manutDaAprire->mtz_data_inizio_tracking = date('Y-m-d');
+            $manutDaAprire->mtz_data_fine_tracking = "9999-12-31";
+            $manutDaAprire->save(false);
+
+            $transaction->commit();
+        } catch(\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
 
         return $this->redirect(['index']);
     }

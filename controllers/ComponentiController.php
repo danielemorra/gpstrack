@@ -87,6 +87,10 @@ class ComponentiController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->cmp_id]);
         } else {
+            $model->cmp_data_acquisto = date('Y-m-d');
+//            $model->cmp_data_dismissione = date('Y-m-d', strtotime('20351231'));
+            $date = '9999-12-31T23:59:59.999-06:00';
+            $model->cmp_data_dismissione = date_format(  date_create($date) , 'Y-m-d');
             return $this->render('create', [
                 'model' => $model,
                 'modelFornitori' => $modelFornitori,		/*dm9-160227*/

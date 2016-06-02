@@ -73,4 +73,45 @@ class Manutenzione extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Componenti::className(), ['cmp_id' => 'mtz_componente_id']);
     }
+
+    public function beforeSave($insert = true) {
+        $date = $this->mtz_data_interv;
+        $date = str_replace('/', '-', $date);
+        $this->mtz_data_interv = date('Y-m-d', strtotime($date));
+
+        $date = $this->mtz_data_inizio_tracking;
+        $date = str_replace('/', '-', $date);
+        $this->mtz_data_inizio_tracking = date('Y-m-d', strtotime($date));
+
+//        $this->mtz_data_fine_tracking = $date == "31-12-9999" ? "9999-12-31" : date('Y-m-d', strtotime($date));
+//        $this->mtz_data_fine_tracking = date('Y-m-d H:i:s', strtotime($date));
+        $date = $this->mtz_data_fine_tracking;
+        $date = str_replace('/', '-', $date);
+        $date = $date .'T23:59:59.999-06:00';
+        $this->mtz_data_fine_tracking = date_format(  date_create($date ) , 'Y-m-d H:i:s');
+
+        return parent::beforeSave($insert);
+    }
+
+    /**
+     * Restituisce la data dismissione in formato text per bypassare il nnn
+     * riconoscimento della data valida a 31/12/9999
+     */
+//    public function getDataFineTracking(){
+//        if($this->mtz_data_fine_tracking == '9999-12-31') {
+//            return '31/12/9999';
+//        }
+//        else {
+//            return date( 'd/m/Y', strtotime($this->mtz_data_fine_tracking));
+//        }
+//    }
+
+//    public function getDataFineTracking(){
+//        if($this->mtz_data_fine_tracking == '2035-12-31' || $this->mtz_data_fine_tracking == '9999-12-31') {
+//            return '31/12/9999';
+//        }
+//        else {
+//            return date( 'd/m/Y', strtotime($this->mtz_data_fine_tracking));
+//        }
+//    }
 }

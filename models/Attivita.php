@@ -29,6 +29,21 @@ class Attivita extends \yii\db\ActiveRecord
         return 'attivita';
     }
 
+//    public function behaviors()
+//    {
+//        return [
+//            [
+//                'class' => 'Attivita',
+//                'attributes' => [
+//                    attivita::EVENT_BEFORE_INSERT => ['ats_data'], // update 1 attribute 'created' OR multiple attribute ['created','updated']
+//                    attivita::EVENT_BEFORE_UPDATE => 'ats_data', // update 1 attribute 'created' OR multiple attribute ['created','updated']
+//                ],
+//                'value' => function ($event) {
+//                    return date('Y-m-d H:i:s', strtotime($this->ats_data));
+//                },
+//            ],
+//        ];
+//    }
     /**
      * @inheritdoc
      */
@@ -74,7 +89,7 @@ class Attivita extends \yii\db\ActiveRecord
     {
         return [
             'ats_id' => 'Id',
-            'ats_data' => 'Data',
+            'ats_data' => 'Data (g/m/a)',
             'ats_mezzo_trasporto_id' => 'Attrezzatura',
             'ats_tempo' => 'Tempo',
             'ats_distanza_km' => 'Distanza (Km)',
@@ -106,4 +121,33 @@ class Attivita extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Utente::className(), ['ute_id' => 'ats_utente_id']);
     }
+
+    public function beforeSave($insert = true) {
+        $date = $this->ats_data;
+        $date = str_replace('/', '-', $date);
+        $this->ats_data = date('Y-m-d', strtotime($date));
+
+        return parent::beforeSave($insert);
+    }
+
+//    private function getOperator($qryString){
+//        switch ($qryString){
+//            case strpos($qryString,'>=') === 0:
+//                $operator = '>=';
+//                break;
+//            case strpos($qryString,'>') === 0:
+//                $operator = '>';
+//                break;
+//            case strpos($qryString,'<=') === 0:
+//                $operator = '<=';
+//                break;
+//            case strpos($qryString,'<') === 0:
+//                $operator = '<';
+//                break;
+//            default:
+//                $operator =  'like';
+//                break;
+//        }
+//        return $operator;
+//    }
 }

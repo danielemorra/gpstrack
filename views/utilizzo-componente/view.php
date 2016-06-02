@@ -42,8 +42,21 @@ $this->params['breadcrumbs'][] = $model->utcComponente->cmp_componente;
                 'label' => 'Attrezzatura',
                 'value' => $model->utcMezzo->mzt_mezzo_trasporto,
             ],
-            'utc_data_montaggio',
-            'utc_data_smontaggio',
+//            'utc_data_montaggio',
+            [
+                'attribute'=>'utc_data_montaggio',
+                'value' => $model->utc_data_montaggio,
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'utc_data_smontaggio',
+            [
+                'attribute'=>'utc_data_smontaggio',
+                'value' => $model->getDataSmontaggio(),
+                'format'=> 'Text'
+//                'value' => $model->utc_data_smontaggio,
+//                'format'=>['Date','php: d/m/Y']
+            ],
+            'utc_note',
         ],
     ]) ?>
 

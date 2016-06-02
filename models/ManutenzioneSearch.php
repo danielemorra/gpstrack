@@ -60,6 +60,7 @@ class ManutenzioneSearch extends Manutenzione
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['mtz_data_interv'=>SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['mtzComponente'] = [                /*model property*/

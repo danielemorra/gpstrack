@@ -32,14 +32,31 @@ $this->params['breadcrumbs'][] = $model->mtz_descrizione;
         'model' => $model,
         'attributes' => [
             'mtz_id',
-            'mtz_data_interv',
+//            'mtz_data_interv',
+            [
+                'attribute'=>'mtz_data_interv',
+                'value' => $model->mtz_data_interv,
+                'format'=>['Date','php: d/m/Y']
+            ],
             'mtz_descrizione',
             [
                 'label' => 'Componente',
                 'value' => $model->mtzComponente->cmp_componente,
             ],
-            'mtz_data_inizio_tracking',
-            'mtz_data_fine_tracking',
+//            'mtz_data_inizio_tracking',
+            [
+                'attribute'=>'mtz_data_inizio_tracking',
+                'value' => $model->mtz_data_inizio_tracking,
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'mtz_data_fine_tracking',
+            [
+                'attribute'=>'mtz_data_fine_tracking',
+//                'value' => $model->getDataFineTracking(),
+//                'format'=> 'Text'
+                'value' => $model->mtz_data_fine_tracking,
+                'format'=>['Date','php: d/m/Y']
+            ],
         ],
     ]) ?>
 

@@ -29,17 +29,44 @@ $this->params['breadcrumbs'][] = $this->title;
             //'sfd_id',
 //            'sfd_sfida_obiet',
             [
-                'attribute' => 'Sfida/Obiet.',
+                'attribute' => 'sfd_sfida_obiet',   /* necessario per visualizzare la textinput per il filtro*/
+                'label' => 'Sfd/Ob.',
                 'value' => function ($searchModel) {
-                    return ($searchModel->sfd_sfida_obiet == 1) ? 'Sfida' : 'Obiettivo';
+                    switch ($searchModel->sfd_sfida_obiet) {
+                        case 1:
+                            $sfObt = 'Sfida';
+                            break;
+                        case 2:
+                            $sfObt = 'Obiettivo';
+                            break;
+                        default:
+                            $sfObt = '(nessun valore)';
+                    }
+//                    return ($searchModel->sfd_sfida_obiet == 1) ? 'Sfida' : 'Obiettivo';
+                    return $sfObt;
                 },
             ],
             'sfd_titolo',
             'sfd_sotto_titolo',
             //'sfd_descrizione',
-            'sfd_data_pubblicaz:date',
-             'sfd_data_inizio:date',
-             'sfd_data_fine:date',
+//            'sfd_data_pubblicaz:date',
+            [
+                'attribute'=>'sfd_data_pubblicaz',
+                'value' => 'sfd_data_pubblicaz',
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'sfd_data_inizio:date',
+            [
+                'attribute'=>'sfd_data_inizio',
+                'value' => 'sfd_data_inizio',
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'sfd_data_fine:date',
+            [
+                'attribute'=>'sfd_data_fine',
+                'value' => 'sfd_data_fine',
+                'format'=>['Date','php: d/m/Y']
+            ],
             // 'sfd_specialita_id',
             [
                 'attribute' => 'specialita',       // public property in SfidaSearch model
@@ -48,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'sfd_tipologia_id',
             [
                 'attribute' => 'tipologia',     // public property in SfidaSearch model
+                'label' => 'Tipo',
                 'value' => 'sfdTipologia.tmz_tipologia'
             ],
             'sfd_obiettivo',

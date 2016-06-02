@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Param;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -102,7 +103,8 @@ class SiteController extends Controller
         
     	// Estrae l'obiettivo di km da effettuare per l'anno in corso da Param 
 //     	$modelParamBdc = Param::findOne(['par_parametro' => 'obiettivo-km-annui-bdc',]);
-    	$modelParamBdc = $paramSearch->estraiObiettivoKmAnnui('obiettivo-km-annui-bdc');
+//    	$modelParamBdc = $paramSearch->estraiParametro('obiettivo-km-annui-bdc');
+        $modelParamBdc = Param::estraiParametro('obiettivo-km-annui-bdc');
     	if ($modelParamBdc != null) {
     		$array['totWeekOfYear'] = $this::getNumSettAnnue();
 	    	$array['totKmPerWeek'] = $this::getKmDaFarePerSettIpotetici(
@@ -116,7 +118,7 @@ class SiteController extends Controller
 	    											   $array['kmBdcAnnui'],
 	    											   $array['totWeekRemain']);
     	}    	
-    	$modelParamMtb = $paramSearch->estraiObiettivoKmAnnui('obiettivo-km-annui-mtb');
+    	$modelParamMtb = $paramSearch->estraiParametro('obiettivo-km-annui-mtb');
     	if ($modelParamMtb != null) {
     		$array['totKmPerWeek'] = $this::getKmDaFarePerSettIpotetici(
     												 $modelParamMtb->par_campo_num, 
@@ -166,7 +168,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-//        return $this->goHome();
+        return $this->goHome();
         $model = new LoginForm();
         return $this->render('login', [
             'model' => $model,
@@ -280,5 +282,10 @@ class SiteController extends Controller
                                     Yii::$app->user->id,
                                     'CORSA');
         return $array;
+    }
+
+    public function actionMaintenance() {
+
+        return $this->render('maintenance');
     }
 }

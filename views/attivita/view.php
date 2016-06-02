@@ -6,13 +6,17 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Attivita */
 
-$this->title = 'Uscita | ' .$model->ats_data;
-$this->params['breadcrumbs'][] = ['label' => 'Uscita', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $model->ats_data;
+$date = $model->ats_data;
+$date = str_replace('-', '/', $date);
+$date = date('d/m/Y', strtotime($date));
+
+$this->title = 'Uscita | ' .$date;
+$this->params['breadcrumbs'][] = ['label' => 'Uscite', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $date;
 ?>
 <div class="attivita-view">
 
-    <h1><?= Html::encode($model->ats_data. ' '.$model->ats_percorso) ?></h1>
+    <h1><?= Html::encode($date. ' '.$model->ats_percorso) ?></h1>
 
     <p>
         <?php if(!Yii::$app->user->isGuest ){ ?>
@@ -32,7 +36,12 @@ $this->params['breadcrumbs'][] = $model->ats_data;
         'model' => $model,
         'attributes' => [
             'ats_id',
-            'ats_data',
+//            'ats_data',
+            [
+                'attribute'=>'ats_data',
+                'value' => $model->ats_data,
+                'format'=>['Date','php: d/m/Y']
+            ],
             [
                 'label' => 'Attrezzatura',
                 'value' => $model->atsMezzoTrasporto->mzt_mezzo_trasporto,

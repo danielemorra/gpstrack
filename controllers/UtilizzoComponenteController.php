@@ -68,6 +68,8 @@ class UtilizzoComponenteController extends Controller
         /*dm9-160227*inizio*************/
 		$dataOdiernaSQL = date('Y-m-d');
         $modelComponenti=ArrayHelper::map(Componenti::find()
+                ->where(['>=', 'cmp_data_dismissione', $dataOdiernaSQL])
+//                ->andWhere(['<=', 'cmp_data_dismissione', $upper])
         		->orderby('cmp_componente')
         		->asArray()
         		->all(), 'cmp_id', 'cmp_componente');
@@ -82,6 +84,10 @@ class UtilizzoComponenteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->utc_id]);
         } else {
+            $model->utc_data_montaggio = date('Y-m-d');
+//            $model->utc_data_smontaggio = date('Y-m-d', strtotime('20351231'));
+            $date = '9999-12-31T23:59:59.999-06:00';
+            $model->utc_data_smontaggio = date_format(  date_create($date) , 'Y-m-d');
             return $this->render('create', [
                 'model' => $model,
                 'modelComponenti' => $modelComponenti,				/*dm9-160227*/

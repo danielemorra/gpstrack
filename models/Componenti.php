@@ -128,4 +128,31 @@ class Componenti extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UtilizzoComponente::className(), ['utc_componente_id' => 'cmp_id']);
     }
+
+    public function beforeSave($insert = true) {
+        $date = $this->cmp_data_acquisto;
+        $date = str_replace('/', '-', $date);
+        $this->cmp_data_acquisto = date('Y-m-d', strtotime($date));
+
+        $date = $this->cmp_data_dismissione;
+        $date = str_replace('/', '-', $date);
+//        $this->cmp_data_dismissione = date('Y-m-d', strtotime($date));
+        $date = $date .'T23:59:59.999-06:00';
+        $this->cmp_data_dismissione = date_format(  date_create($date ) , 'Y-m-d H:i:s');
+
+        return parent::beforeSave($insert);
+    }
+
+    /**
+     * Restituisce la data dismissione in formato text per bypassare il nnn
+     * riconoscimento della data valida a 31/12/9999
+     */
+    public function getDataDismissione(){
+        if($this->cmp_data_dismissione == '9999-12-31') {
+            return '31/12/9999';
+        }
+        else {
+            return date( 'd/m/Y', strtotime($this->cmp_data_dismissione));
+        }
+    }
 }

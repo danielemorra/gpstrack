@@ -29,38 +29,47 @@ AppAsset::register($this);
                 'brandLabel' => Yii::$app->user->isGuest ? 'GpsTrack' : 'GpsTrack | ' .Yii::$app->user->identity->ute_username,
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+//                    'class' => 'navbar-inverse navbar-fixed-top',
+//                    'class' => 'navbar-dm9 navbar-fixed-top',
+                    'class' => 'navbar-default navbar-fixed-top',
                 ],
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Uscite', 'url' => ['/attivita'], 'visible' => !Yii::$app->user->isGuest],
-//                  ['label' => 'Sfide', 'url' => ['/sfida']],
+                  ['label' => 'Sfide', 'url' => ['/sfida-iscrizione'], 'visible' => !Yii::$app->user->isGuest],
 //                 	['label' => 'Ub/Comp.', 'url' => ['/ubicazione-componente']],
-                    ['label' => 'Attrezzatura', 'url' => ['/mezzo-trasporto'], 'visible' => !Yii::$app->user->isGuest],
-//               		[
-//                		'label' => 'Attrezzatura',
-//                		'items' => [
-//                				['label' => 'Attrezzatura', 'url' => Yii::$app->homeUrl.'?r=mezzo-trasporto'],
-//                				'<li class="divider"></li>',
-//                				['label' => 'Manutenzione', 'url' => Yii::$app->homeUrl.'?r=manutenzione'],
-//                		],
-//               		],
+//                    ['label' => 'Attrezzatura', 'url' => ['/mezzo-trasporto'], 'visible' => !Yii::$app->user->isGuest],
                		[
-                		'label' => 'Componenti',
+                		'label' => 'Attrezzatura',
                 		'items' => [
-                				['label' => 'Componenti', 'url' => Yii::$app->homeUrl.'?r=componenti'],
+                				['label' => 'Attrezzatura', 'url' => Yii::$app->homeUrl.'?r=mezzo-trasporto'],
                 				'<li class="divider"></li>',
-//                 				'<li class="dropdown-header">Dropdown Header</li>',
+                                ['label' => 'Componenti', 'url' => Yii::$app->homeUrl.'?r=componenti'],
+                                '<li class="divider"></li>',
                                 ['label' => 'Manutenzione', 'url' => Yii::$app->homeUrl.'?r=manutenzione'],
-                				['label' => 'Utilizzo', 'url' => Yii::$app->homeUrl.'?r=utilizzo-componente'],
-                				['label' => 'Ubicazione', 'url' => Yii::$app->homeUrl.'?r=ubicazione-componente'],
+                                ['label' => 'Utilizzo', 'url' => Yii::$app->homeUrl.'?r=utilizzo-componente'],
+                                ['label' => 'Ubicazione', 'url' => Yii::$app->homeUrl.'?r=ubicazione-componente'],
                                 '<li class="divider"></li>',
                                 ['label' => 'Venditori', 'url' => Yii::$app->homeUrl.'?r=fornitori'],
                 		],
                         'visible' => !Yii::$app->user->isGuest,
                		],
+//               		[
+//                		'label' => 'Componenti',
+//                		'items' => [
+//                				['label' => 'Componenti', 'url' => Yii::$app->homeUrl.'?r=componenti'],
+//                				'<li class="divider"></li>',
+////                 				'<li class="dropdown-header">Dropdown Header</li>',
+//                                ['label' => 'Manutenzione', 'url' => Yii::$app->homeUrl.'?r=manutenzione'],
+//                				['label' => 'Utilizzo', 'url' => Yii::$app->homeUrl.'?r=utilizzo-componente'],
+//                				['label' => 'Ubicazione', 'url' => Yii::$app->homeUrl.'?r=ubicazione-componente'],
+//                                '<li class="divider"></li>',
+//                                ['label' => 'Venditori', 'url' => Yii::$app->homeUrl.'?r=fornitori'],
+//                		],
+//                        'visible' => !Yii::$app->user->isGuest,
+//               		],
                 	[
                 		'label' => "Backend",
                 		'items' => [
@@ -76,7 +85,7 @@ AppAsset::register($this);
                                 '<li class="divider"></li>',
                                 ['label' => 'Utenti', 'url' => Yii::$app->homeUrl.'?r=utente'],
                 		],
-                        'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->ute_username = 'dm9',
+                        'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->ute_username == 'dm9',
                 	],
                 		
                		/*dm9*

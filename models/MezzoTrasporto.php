@@ -97,4 +97,17 @@ class MezzoTrasporto extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UtilizzoComponente::className(), ['utc_mezzo_id' => 'mzt_id']);
     }
+
+    public function beforeSave($insert = true) {
+        $date = $this->mzt_data_inizio_utilizzo;
+        $date = str_replace('/', '-', $date);
+        $this->mzt_data_inizio_utilizzo = date('Y-m-d', strtotime($date));
+
+        $date = $this->mzt_data_fine_utilizzo;
+        $date = str_replace('/', '-', $date);
+        $date = $date .'T23:59:59.999-06:00';
+        $this->mzt_data_fine_utilizzo = date_format(  date_create($date ) , 'Y-m-d H:i:s');
+
+        return parent::beforeSave($insert);
+    }
 }

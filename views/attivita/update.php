@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Attivita */
 
 $this->title = 'Modifica Uscita: ' . ' ' . $model->ats_data;
-$this->params['breadcrumbs'][] = ['label' => 'Uscita', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Uscite', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->ats_data, 'url' => ['view', 'id' => $model->ats_id]];
 $this->params['breadcrumbs'][] = 'Modifica';
 ?>

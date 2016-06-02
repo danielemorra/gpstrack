@@ -49,12 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'utc_id',
-            
+//            'utc_id',
             /*dm9* inizio*/
 //          'utc_mezzo_id',
             [
             'attribute' => 'utcMezzo',
+            'label' => 'Attrezzatura',
             'value' => 'utcMezzo.mzt_mezzo_trasporto'
             ],
             /*dm9* fine*/
@@ -63,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //          'utc_componente_id',
             [
             'attribute' => 'utcComponente',
+            'label' => 'Componente',
             'value' => 'utcComponente.cmp_componente'
             ],
             /*dm9* fine*/
@@ -70,9 +71,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'utc_qta_utilizzo',
             
 //*dm9*     'utc_mezzo_id',
-            'utc_data_montaggio',
-            'utc_data_smontaggio',
-
+//            'utc_data_montaggio',
+            [
+                'attribute'=>'utc_data_montaggio',
+                'value' => 'utc_data_montaggio',
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'utc_data_smontaggio',
+            [
+                'attribute'=>'utc_data_smontaggio',
+                'value' => 'utc_data_smontaggio',
+                'format'=>['Date','php: d/m/Y']
+            ],
+            'utc_note',
 //            ['class' => 'yii\grid\ActionColumn'],
             $actionColumn
         ],

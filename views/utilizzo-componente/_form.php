@@ -29,10 +29,12 @@ use yii\widgets\ActiveForm;
     ?>
     
     
-    <?= $form->field($model, 'utc_data_montaggio')->textInput() ?>
+    <?= $form->field($model, 'utc_data_montaggio')->textInput(['value' => date( 'd/m/Y', strtotime( $model->utc_data_montaggio ))]) ?>
 
-    <?= $form->field($model, 'utc_data_smontaggio')->textInput() ?>
+    <?= $form->field($model, 'utc_data_smontaggio')->textInput(['value' => date_format(  date_create($model->utc_data_smontaggio ) , 'd/m/Y') ]) ?>
 
+    <?= $form->field($model, 'utc_note')->textInput(['maxlength' => 100]) ?>
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

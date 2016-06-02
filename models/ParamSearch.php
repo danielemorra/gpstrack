@@ -73,8 +73,8 @@ class ParamSearch extends Param
      * Estrae da Param l'obiettivo Km da fare annui per la BDC  
      * @param unknown $parParametro
      */
-    public function estraiObiettivoKmAnnui($parParametro)
-    {
-    	return Param::findOne(['par_parametro' => $parParametro,]);
-    }
+//    public function estraiParametro($parParametro)
+//    {
+//    	return Param::findOne(['par_parametro' => $parParametro,]);
+//    }
 }

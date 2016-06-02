@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Attivita;
 
 /**
  * AttivitaSearch represents the model behind the search form about `app\models\Attivita`.
@@ -13,7 +12,9 @@ use app\models\Attivita;
 class AttivitaSearch extends Attivita
 {
 	public $atsMezzoTrasporto;      /*model property*/
-	
+    //this is attribute of filter input:
+    public $dateAttivita;
+
 	/**
      * @inheritdoc
      */
@@ -33,7 +34,8 @@ class AttivitaSearch extends Attivita
                     'ats_data',
                     'ats_tempo',
                     'ats_percorso',
-                    'atsMezzoTrasporto'     /*model property*/
+                    'atsMezzoTrasporto',     /*model property*/
+//                    'dataFineAttivita'
                 ]
                 ,
                 'safe'],
@@ -59,6 +61,7 @@ class AttivitaSearch extends Attivita
      */
     public function search($params)
     {
+
         $query = Attivita::find()->where('ats_utente_id = ' .Yii::$app->user->id);
 
         $query->joinWith(['atsMezzoTrasporto']);	    /*nome relazione*/
@@ -66,6 +69,7 @@ class AttivitaSearch extends Attivita
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['ats_data'=>SORT_DESC]]
         ]);
 
         /*dm9*inizio*/
@@ -82,15 +86,21 @@ class AttivitaSearch extends Attivita
         	 */
         	return $dataProvider;
         }
-        	
-        $query->andFilterWhere([
-            'ats_id' => $this->ats_id,
-            'ats_data' => $this->ats_data,
-            'ats_tempo' => $this->ats_tempo,
-            'ats_distanza_km' => $this->ats_distanza_km,
-            'ats_dislivello' => $this->ats_dislivello,
-            'ats_utente_id' => $this->ats_utente_id,
-        ]);
+
+//        foreach (AttivitaSearch::getSearchColumns() as $columnname){
+//            $operator = $this->getOperator($this->$columnname);
+//            $operand = str_replace($operator,'',$this->$columnname);
+//            $query->andFilterWhere([$operator, $columnname, $operand]);
+//        }
+
+
+//        $query->andFilterWhere(['>=', 'ats_data', $this->ats_data]);
+//        $query->andFilterWhere(['<=', 'ats_data', $this->dataFineAttivita]);
+        if (!is_null($this->dateAttivita) &&
+            strpos($this->dateAttivita, ' - ') !== false ) {
+            list($start_date, $end_date) = explode(' - ', $this->dateAttivita);
+            $query->andFilterWhere(['between', 'date(ats_data.date)', $start_date, $end_date]);
+        }
 
         $query->andFilterWhere(['like', 'ats_percorso', $this->ats_percorso]);
 

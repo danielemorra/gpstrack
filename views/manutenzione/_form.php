@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'mtz_data_interv')->textInput() ?>
+    <?= $form->field($model, 'mtz_data_interv')->textInput(['value' => date( 'd/m/Y', strtotime( $model->mtz_data_interv ))]) ?>
 
     <?= $form->field($model, 'mtz_descrizione')->textInput(['maxlength' => 100]) ?>
 
@@ -24,9 +24,9 @@ use yii\widgets\ActiveForm;
     ?>
 
     
-    <?= $form->field($model, 'mtz_data_inizio_tracking')->textInput() ?>
+    <?= $form->field($model, 'mtz_data_inizio_tracking')->textInput(['value' => date( 'd/m/Y', strtotime( $model->mtz_data_inizio_tracking ))]) ?>
 
-    <?= $form->field($model, 'mtz_data_fine_tracking')->textInput() ?>
+    <?= $form->field($model, 'mtz_data_fine_tracking')->textInput(['value' => date_format(  date_create($model->mtz_data_fine_tracking ) , 'd/m/Y')]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

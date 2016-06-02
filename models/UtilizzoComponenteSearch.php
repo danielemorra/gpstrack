@@ -32,7 +32,8 @@ class UtilizzoComponenteSearch extends UtilizzoComponente
                     'utc_data_montaggio', 
                     'utc_data_smontaggio', 
                     'utcComponente', 
-                    'utcMezzo'
+                    'utcMezzo',
+                    'utc_note'
                 ], 'safe'],
         ];
     }
@@ -88,6 +89,8 @@ class UtilizzoComponenteSearch extends UtilizzoComponente
         ]);
         $query->andFilterWhere(['like', 'componenti.cmp_componente', $this->utcComponente]);		/*nome tabella.nome campo , model property*/
         $query->andFilterWhere(['like', 'mezzo_trasporto.mzt_mezzo_trasporto', $this->utcMezzo]);
+
+        $query->andFilterWhere(['like', 'utc_note', $this->utc_note]);
         
         return $dataProvider;
     }

@@ -49,10 +49,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'mzt_id',
+//            'mzt_id',
             'mzt_mezzo_trasporto',
-            'mzt_data_inizio_utilizzo',
-            'mzt_data_fine_utilizzo',
+//            'mzt_data_inizio_utilizzo',
+            [
+                'attribute'=>'mzt_data_inizio_utilizzo',
+                'value' => 'mzt_data_inizio_utilizzo',
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'mzt_data_fine_utilizzo',
+            [
+                'attribute'=>'mzt_data_fine_utilizzo',
+                'value' => 'mzt_data_fine_utilizzo',
+                'format'=>['Date','php: d/m/Y']
+            ],
             /*dm9* inizio*/
 //          'mzt_tipologia_id',
             [

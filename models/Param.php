@@ -54,4 +54,9 @@ class Param extends \yii\db\ActiveRecord
             'par_campo_date' => 'Campo Data',
         ];
     }
+
+    public static function estraiParametro($parParametro)
+    {
+        return Param::findOne(['par_parametro' => $parParametro,]);
+    }
 }

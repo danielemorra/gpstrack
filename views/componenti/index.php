@@ -47,13 +47,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-//*dm9*     ['class' => 'yii\grid\SerialColumn'],
+             ['class' => 'yii\grid\SerialColumn'],
 
-            'cmp_id',
+//            'cmp_id',
 //*dm9*     'cmp_marca',
 //*dm9*     'cmp_modello',
             'cmp_componente',
-            'cmp_mostra_in_home',
+            [
+                'attribute' => 'cmp_mostra_in_home',
+                'label' => 'In Home',
+//                'value' => function($searchModel) {
+//                    return ($searchModel->cmp_mostra_in_home == 1 ? 'S' : 'N');
+//                }
+                'format' => 'raw',
+                'value' => function ($model, $index, $widget) {
+                    return Html::checkbox('inHome[]', $model->cmp_mostra_in_home, ['value' => $index, 'disabled' => true]);
+                },
+            ],
             [
             'attribute' => 'cmpIdCat',
             'label' => 'Categoria',
@@ -67,9 +77,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'cmp_qta_acq',
             'cmp_qta_util',
             'cmp_prz_acq_unit',
-            'cmp_data_acquisto',
-            'cmp_data_dismissione',
-            'cmp_mystuff2',
+//            'cmp_data_acquisto',
+            [
+                'attribute'=>'cmp_data_acquisto',
+                'value' => 'cmp_data_acquisto',
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'cmp_data_dismissione',
+            [
+                'attribute'=>'cmp_data_dismissione',
+                'value' => 'cmp_data_dismissione',
+                'format'=>['Date','php: d/m/Y']
+            ],
+            [
+                'attribute' => 'cmp_mystuff2',
+//                'value' => function($searchModel) {
+//                    return ($searchModel->cmp_mystuff2 == 1 ? 'S' : 'N');
+//                }
+                'format' => 'raw',
+                'value' => function ($model, $index, $widget) {
+                    return Html::checkbox('myStuff[]', $model->cmp_mystuff2, ['value' => $index, 'disabled' => true]);
+                },
+            ],
             [
             'attribute' => 'cmpIdFrn',
             'value' => 'cmpIdFrn.frn_nome'

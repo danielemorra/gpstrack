@@ -23,6 +23,7 @@ class SfidaSearch extends Sfida
             [['sfd_id', 'sfd_specialita_id', 'sfd_tipologia_id'], 'integer'],
             [
                 [
+                    'sfd_sfida_obiet',
                     'sfd_titolo',
                     'sfd_sotto_titolo',
                     'sfd_descrizione',
@@ -34,7 +35,7 @@ class SfidaSearch extends Sfida
                     'tipologia',        /*model property*/
                 ],
                 'safe'],
-            [['sfd_obiettivo'], 'number'],
+//            [['sfd_obiettivo'], 'number'],
         ];
     }
 
@@ -65,6 +66,7 @@ class SfidaSearch extends Sfida
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['sfd_data_inizio'=>SORT_DESC]]
         ]);
 
         $dataProvider->sort->attributes['specialita'] = [       /*model property*/
@@ -87,9 +89,18 @@ class SfidaSearch extends Sfida
             return $dataProvider;
         }
 
+        switch (strtoupper($this->sfd_sfida_obiet)) {
+            case 'SFIDA':
+                $query->andFilterWhere(['sfd_sfida_obiet' => 1]);
+                break;
+            case 'OBIETTIVO':
+                $query->andFilterWhere(['sfd_sfida_obiet' => 2]);
+                break;
+        }
+
         $query->andFilterWhere([
             'sfd_id' => $this->sfd_id,
-            'sfd_sfida_obiet' => $this->sfd_sfida_obiet,
+//            'sfd_sfida_obiet' => strtoupper($this->sfd_sfida_obiet) == 'SFIDA' ? 1 : 2,
             'sfd_data_pubblicaz' => $this->sfd_data_pubblicaz,
             'sfd_data_inizio' => $this->sfd_data_inizio,
             'sfd_data_fine' => $this->sfd_data_fine,

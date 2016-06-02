@@ -20,9 +20,9 @@ use yii\widgets\ActiveForm;
 		     ->dropDownList($modelTipologia, ['prompt'=>'-Seleziona la tipologia di bici-']);	/*dm9-160223*/
     ?>
     
-    <?= $form->field($model, 'mzt_data_inizio_utilizzo')->textInput() ?>
+    <?= $form->field($model, 'mzt_data_inizio_utilizzo')->textInput(['value' => date( 'd/m/Y', strtotime( $model->mzt_data_inizio_utilizzo ))]) ?>
 
-    <?= $form->field($model, 'mzt_data_fine_utilizzo')->textInput() ?>
+    <?= $form->field($model, 'mzt_data_fine_utilizzo')->textInput(['value' => date_format(  date_create($model->mzt_data_fine_utilizzo ) , 'd/m/Y')]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

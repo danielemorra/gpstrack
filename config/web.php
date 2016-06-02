@@ -52,6 +52,15 @@ $config = [
     	/*dm9*fine*/
     ],
     'params' => $params,
+    'on beforeRequest' => function () {
+        Yii::$app->params['siteSettingsOffline'] = \app\models\Param::estraiParametro('SiteSettingsOffline');
+        if (Yii::$app->params['siteSettingsOffline']->par_campo_num == 1) {
+            Yii::$app->catchAll = [
+                'site/maintenance',
+//                'message' => Yii::$app->params['siteSettingsOffline']->par_campo_str
+            ];
+        }
+    },
 ];
 
 if (YII_ENV_DEV) {

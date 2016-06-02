@@ -75,6 +75,9 @@ class MezzoTrasportoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->mzt_id]);
         } else {
+            $model->mzt_data_inizio_utilizzo = date('Y-m-d');
+            $date = '9999-12-31T23:59:59.999-06:00';
+            $model->mzt_data_fine_utilizzo = date_format(  date_create($date) , 'Y-m-d');
             return $this->render('create', [
                 'model' => $model,
             	'modelTipologia' => $modelTipologia,		/*dm9-160227*/	

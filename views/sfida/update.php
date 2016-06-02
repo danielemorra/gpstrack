@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 ($model->sfd_sfida_obiet == 1) ? $tipoSfdObt = 'Sfida' : $tipoSfdObt = 'Obiettivo';
 $this->title = $tipoSfdObt .' | ' .$model->sfd_titolo;
-$this->params['breadcrumbs'][] = ['label' => $tipoSfdObt, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Sfide e Obiettivi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->sfd_titolo, 'url' => ['view', 'id' => $model->sfd_id]];
 $this->params['breadcrumbs'][] = 'Modifica';
 

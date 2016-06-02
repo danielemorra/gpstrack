@@ -33,8 +33,18 @@ $this->params['breadcrumbs'][] = $model->mzt_mezzo_trasporto;
         'attributes' => [
             'mzt_id',
             'mzt_mezzo_trasporto',
-            'mzt_data_inizio_utilizzo',
-            'mzt_data_fine_utilizzo',
+//            'mzt_data_inizio_utilizzo',
+            [
+                'attribute'=>'mzt_data_inizio_utilizzo',
+                'value' => $model->mzt_data_inizio_utilizzo,
+                'format'=>['Date','php: d/m/Y']
+            ],
+//            'mzt_data_fine_utilizzo',
+            [
+                'attribute'=>'mzt_data_fine_utilizzo',
+                'value' => $model->mzt_data_fine_utilizzo,
+                'format'=>['Date','php: d/m/Y']
+            ],
             [
                 'label' => 'Tipologia',
                 'value' => $model->mztTipologia->tmz_tipologia,

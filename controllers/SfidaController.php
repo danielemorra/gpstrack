@@ -85,6 +85,11 @@ class SfidaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->sfd_id]);
         } else {
+            $model->sfd_data_pubblicaz = date('Y-m-d');
+            $model->sfd_data_inizio = date('Y-m-d');
+//            $model->sfd_data_fine = date('Y-m-d', strtotime('20351231'));
+            $date = '9999-12-31T23:59:59.999-06:00';
+            $model->sfd_data_fine = date_format(  date_create($date) , 'Y-m-d');
             return $this->render('create', [
                 'model' => $model,
                 'modelSpecialita' => $modelSpecialita,

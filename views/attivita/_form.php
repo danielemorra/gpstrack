@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ats_data')->textInput() ?>
+    <?= $form->field($model, 'ats_data')->textInput(['value' => date( 'd/m/Y', strtotime( $model->ats_data ))])?>
     
     <?php
     echo $form->field($model, 'ats_mezzo_trasporto_id')

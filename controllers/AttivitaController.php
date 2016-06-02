@@ -88,6 +88,7 @@ class AttivitaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ats_id]);
         } else {
+            $model->ats_data = date('Y-m-d');
             return $this->render('create', [
                 'model' => $model,
                 'modelMezzoTrasporto' => $modelMezzoTrasporto,		/*dm9-160227*/

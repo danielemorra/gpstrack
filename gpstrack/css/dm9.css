@@ -104,3 +104,11 @@ only screen and (max-width: 760px),
 {
 	color: #271cfb;
 }
+
+.navbar-dm9 {
+	color: #000;
+	background-color: #ddd;
+	/*border-color: #cccccc;*/
+	/*color: #8a6d3b;*/
+	/*height: 10px;*/
+}
